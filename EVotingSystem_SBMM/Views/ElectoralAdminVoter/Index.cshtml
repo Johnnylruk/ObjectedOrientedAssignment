@@ -1,0 +1,66 @@
+﻿@model List<VoterModel>
+@{
+    ViewData["Title"] = @language.Getkey("Voters List");
+}
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">@language.Getkey("Voters List")</h1>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-success" role="button" asp-controller="ElectoralAdminVoter" asp-action="CreateVoter">@language.Getkey("Add Voter")</a>
+    </div>
+    <br />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+       <div class="alert alert-success" role="alert">
+          <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+          @TempData["SuccessMessage"]
+       </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+            @TempData["ErrorMessage"]
+
+        </div>
+    }
+        <br />
+
+    <table class="table" id="tables">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@language.Getkey("Full Name")</th>
+                <th scope="col">@language.Getkey("Email")</th>
+                <th scope="col">@language.Getkey("Contact Number")</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (VoterModel voter in Model)
+                {
+                    <tr>
+                        <th scope="row">@voter.Id</th>
+                        <td>@voter.Name</td>
+                        <td>@voter.Email</td>
+                        <td>@voter.Mobile</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-primary" asp-route-id="@voter.Id" asp-controller="ElectoralAdminVoter" asp-action="EditVoter">@language.Getkey("Edit Voter")</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@voter.Id" asp-controller="ElectoralAdminVoter" asp-action="DeleteVoter">@language.Getkey("Delete Voter")</a>
+                                <a role="button" class="btn btn-info" asp-route-id="@voter.Id" asp-controller="ElectoralAdminVoter" asp-action="Details">@language.Getkey("Voter Details")</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="5">@language.Getkey("Voter has not been found.")</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

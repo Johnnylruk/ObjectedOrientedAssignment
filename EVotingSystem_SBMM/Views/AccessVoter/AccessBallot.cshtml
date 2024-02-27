@@ -1,0 +1,21 @@
+@model List<EventModel>
+
+<div class="events-container">
+    @foreach (var eventModel in Model)
+    {
+        <div class="event-box text-white">
+            <div class="event-content">
+                <h2>@eventModel.Name</h2>
+                <p>@language.Getkey("Start Date"): @eventModel.StartDate</p>
+                <p>@language.Getkey("End Date"): @eventModel.EndDate</p>
+                <p>@language.Getkey("Event Type"): @eventModel.EventType</p>
+                <!-- Add any other event details you want to display -->
+
+                <form method="post" asp-controller="AccessVoter" asp-action="Ballot">
+                    <input type="hidden" name="eventId" value="@eventModel.EventId" />
+                    <button type="submit" class="btn btn-primary">@language.Getkey("Select")</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

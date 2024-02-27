@@ -1,0 +1,94 @@
+@using EVotingSystem_SBMM.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model dynamic
+@inject LanguageService language
+
+ 
+<body id="body-pd">
+
+<header class="header" id="header">
+    <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+     
+</header>
+    
+<div class="l-navbar" id="nav-bar">
+    <nav class="nav" id="nav-bar">
+        <div>
+            <a href="/Home" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> 
+                <span class="nav_logo-name">@language.Getkey("Evoting System")</span> 
+            </a>
+            
+           
+                 <div class="nav_list"><a href="/Home/Index" class="nav_link active">
+                    <i class="fa fa-home" aria-hidden="true"></i> 
+                    <span class="nav_name">@language.Getkey("Home")</span> 
+                     </a> 
+                      @if (Model.Profile == ProfileEnum.ElectoralAdministrator)
+                     {
+                         <a href="/ElectoralAdminVoter/Index" class="nav_link">
+                             <i class="fa fa-id-card-o"></i>
+                             <span class="nav_name">@language.Getkey("Users")</span>
+                         </a> 
+                         <a href="/ElectoralAdminUser/Index" class="nav_link">
+                             <i class='fa fa-user nav_icon'></i>
+                             <span class="nav_name">@language.Getkey("Users")</span>
+                         </a>
+                         <a href="/ElectoralAdminCandidate/Index" class="nav_link">
+                             <i class="fa fa-users" aria-hidden="true"></i>
+                             <span class="nav_name">@language.Getkey("Candidates")</span>
+                         </a>
+                         <a href="/Event/Index" class="nav_link">
+                             <i class="fa fa-calendar" aria-hidden="true"></i>
+                             <span class="nav_name">@language.Getkey("Events")</span>
+                         </a>
+                     }
+                     @if (Model.Profile == ProfileEnum.ElectoralAdministrator || Model.Profile == ProfileEnum.ThirdPartAuditor)
+                                             {
+                     <a href="/Audit/Index" class="nav_link">
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    <span class="nav_name">@language.Getkey("Audit")</span> 
+                    </a>  
+                                             }
+                    @if (Model.Profile == ProfileEnum.Voter)
+                        { 
+                        <a href="/AccessVoter/AccessBallot" class="nav_link">
+                            <i class="fa fa-user-secret" aria-hidden="true"></i>
+                            <span class="nav_name">@language.Getkey("Ballot")</span> 
+                        </a>
+                            <a href="/AccessVoter/UpdateVoter" class="nav_link">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="nav_name">@language.Getkey("Update Information")</span> 
+                        </a>
+                        <a href="/AccessVoter/VoteStatus" class="nav_link">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        <span class="nav_name">@language.Getkey("Status")</span> 
+                        </a>
+                        }
+
+                        <a href="/Password/Index" class="nav_link">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                        <span class="nav_name">@language.Getkey("Change Password")</span> 
+                        </a>
+                        <a href="/Home/Privacy" class="nav_link">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <span class="nav_name">@language.Getkey("Privacy")</span> 
+                        </a>
+                        </div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-globe"  aria-hidden="true"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US"><i class="flag-icon flag-icon-gb"></i>@language.Getkey("English")</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pt-BR"><i class="flag-icon flag-icon-br"></i>@language.Getkey("Portuguese")</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div> 
+        <a asp-controller="Login" asp-action="LoggedOut" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> 
+            <span class="nav_name">SignOut</span> </a>
+    </nav>
+</div>
+</body>
+

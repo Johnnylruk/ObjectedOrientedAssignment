@@ -1,0 +1,66 @@
+@model List<CandidateModel>
+
+@{
+    ViewData["Title"] = @language.Getkey("Ballot");
+    bool isEventActive = ViewData.ContainsKey("IsEventActive") ? (bool)ViewData["IsEventActive"] : false;
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">x</button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">x</button>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (isEventActive)
+{
+    <div class="text-center" id="selectedCandidateSection">
+        <h1 class="display-4">@language.Getkey("Ballot")</h1>
+
+        <!-- STV Ballot Section -->
+        <div id="stvBallot">
+            <h2>@language.Getkey("STV")</h2>
+            <hr />
+            <!-- Display STV Ballot Candidates -->
+            <form method="post" asp-controller="Vote" asp-action="SubmitVoteSTV">
+                <input type="hidden" name="eventId" value="@ViewData["SelectedEventId"]" />
+                <div id="candidates">
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        <div>
+                           <strong>@language.Getkey("Name"):</strong> @Model[i].Name<br/>
+                           <strong>@language.Getkey("Party"):</strong> @Model[i].Party<br/>
+                           <strong>@language.Getkey("Description"):</strong> @Model[i].Description<br/>
+                            <!-- Add any other details you want to display -->
+                       <input type="hidden" name="vote.Preferences[@i].CandidateId" value="@Model[i].Id" />
+                            <!-- Rank dropdown -->
+                           <select name="vote.Preferences[@i].Rank" class="rank-selectSTV">
+                               <option value="">@language.Getkey("Select Rank")</option>
+                               @for (int j = 1; j <= 5; j++)
+                               {
+                                   <option value="@j">@j</option>
+                               }
+                           </select>
+                            <hr />
+                        </div>
+                    }
+                </div>
+                <!-- Vote button -->
+                <button type="submit" id="VoteSTVButton" class="btn btn-success">Vote</button>
+            </form>
+
+        </div>
+    </div>
+}
+else
+{
+    <p>@language.Getkey("No Event")</p>
+}

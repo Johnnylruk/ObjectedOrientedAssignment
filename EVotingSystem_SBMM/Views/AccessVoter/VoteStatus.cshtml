@@ -1,0 +1,55 @@
+@model List<EventModel>
+
+@{
+    ViewData["Title"] = @language.Getkey("Ballot");
+}
+
+@{
+    var hasVotedForEvent = ViewData["HasVotedForEvent"] as Dictionary<int, bool>;
+}
+
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">@language.Getkey("Events")</h1>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">@language.Getkey("Back")</a>
+
+    </div>
+<br />
+
+@if (Model == null || !Model.Any())
+{
+    <p>@language.Getkey("No Event")</p>
+}
+else
+{
+    <table class="table " id="tables">
+        <thead>
+        <tr>
+            <th>@language.Getkey("Name")</th>
+            <th>@language.Getkey("Descriptios")</th>
+            <th>@language.Getkey("Status")</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var eventModel in Model)
+        {
+            <tr>
+                <td>@eventModel.Name</td>
+                <td>@eventModel.Description</td>
+                <td>
+                    @if (hasVotedForEvent.ContainsKey(eventModel.EventId) && hasVotedForEvent[eventModel.EventId])
+                    {
+                        <span class="badge bg-success">@language.Getkey("Voted")</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">@language.Getkey("Not Voted")</span>
+                        <a class="btn btn-warning" role="button" asp-controller="AccessVoter" asp-action="AccessBallot">@language.Getkey("Vote Now")</a>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+</div>

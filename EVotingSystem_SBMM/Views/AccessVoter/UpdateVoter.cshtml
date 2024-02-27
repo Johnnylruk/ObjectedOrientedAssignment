@@ -1,0 +1,100 @@
+@model VoterModel;
+
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">@language.Getkey("Edit")</h1>
+
+</div>
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">@language.Getkey("Edit")</p>
+
+                                <form class="mx-1 mx-md-4" asp-controller="AccessVoter" asp-action="UpdateVoter" mothod="post">
+                                    
+                                    <input type="hidden" asp-for="Id"/>
+
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="name">@language.Getkey("Full Name")</label>
+                                            <input type="text" class="form-control" asp-for="Name" placeholder="Type your full name" disabled="true"/>
+                                            @Html.ValidationMessageFor(x => x.Name)
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="form3Example3c">@language.Getkey("Email")</label>
+                                            <input type="email" class="form-control" asp-for="Email" placeholder="Type your Email" />
+                                            @Html.ValidationMessageFor(x => x.Email)
+
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="mobile">@language.Getkey("Mobile")</label>
+                                            <input type="text" class="form-control" asp-for="Mobile" placeholder="Type your Mobile Number" />
+                                            @Html.ValidationMessageFor(x => x.Mobile)
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="state">@language.Getkey("State")</label>
+                                            <input type="text" class="form-control" asp-for="State" placeholder="Type your State" disabled="true" />
+                                            @Html.ValidationMessageFor(x => x.State)
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="city">@language.Getkey("City")</label>
+                                            <input type="text" class="form-control" asp-for="City" placeholder="Type your city" disabled="true" />
+                                            @Html.ValidationMessageFor(x => x.City)
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="address">@language.Getkey("Address")</label>
+                                            <input type="text" class="form-control" asp-for="Address" placeholder="Type your Address" disabled="true" />
+                                            @Html.ValidationMessageFor(x => x.Address)
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="birthdate">@language.Getkey("BirthDate")</label>
+                                            <input type="text" class="form-control" asp-for="BirthDate" placeholder="Type your BirthDate" disabled="true"/>
+                                            @Html.ValidationMessageFor(x => x.BirthDate)
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary">@language.Getkey("Update")</button>
+                                        <a class="btn btn-secondary" asp-controller="ElectoralAdminVoter" asp-action="Index">@language.Getkey("Back")</a>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                     class="img-fluid" alt="Sample image">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

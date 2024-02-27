@@ -1,0 +1,77 @@
+@using EVotingSystem_SBMM.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ChangePasswordModel
+
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">@language.Getkey("Change your Password")</h1>
+
+</div>
+  @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+            @TempData["ErrorMessage"]
+
+        </div>
+    }
+    <br />
+    
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-white">
+                    <div class="card-body customizing-bg-color p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                                <form class="mx-1 mx-md-4" asp-controller="Password" asp-action="ChangeUserPassword" mothod="post">
+                                    
+                                <div class="d-flex flex-row align-items-center mb-1">
+                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                    <div class="form-outline flex-fill mb-0">
+                                        <label class="form-label" for="oldPassword">@language.Getkey("Old Password")</label>
+                                        <input type="password" class="form-control" asp-for="OldPassword" placeholder="Type your old password"/>
+                                        @Html.ValidationMessageFor(x => x.OldPassword)
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center mb-1">
+                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                    <div class="form-outline flex-fill mb-0">
+                                        <label class="form-label" for="newPassword">@language.Getkey("New Password")</label>
+                                        <input type="password" class="form-control" asp-for="NewPassword" placeholder="Type your new password"/>
+                                        @Html.ValidationMessageFor(x => x.NewPassword)
+                                    </div>
+                                </div>
+                                   <div class="d-flex flex-row align-items-center mb-1">
+                                   <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                   <div class="form-outline flex-fill mb-0">
+                                       <label class="form-label" for="confirmNewPassword">@language.Getkey("Confirm Password")</label>
+                                       <input type="password" class="form-control" asp-for="ConfirmNewPassword" placeholder="Type your new password"/>
+                                       @Html.ValidationMessageFor(x => x.ConfirmNewPassword)
+                                    </div>
+                                </div>
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary">@language.Getkey("Update")</button>
+                                        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">@language.Getkey("Back")</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                     class="img-fluid" alt="Sample image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

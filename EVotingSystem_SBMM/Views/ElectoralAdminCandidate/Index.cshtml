@@ -1,0 +1,71 @@
+@model List<CandidateModel>
+@{
+    ViewData["Title"] = @language.Getkey("Candidates");
+}
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">@language.Getkey("Candidates")</h1>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-success" role="button" asp-controller="ElectoralAdminCandidate" asp-action="CreateCandidate">@language.Getkey("Add")</a>
+    </div>
+    <br />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+            @TempData["ErrorMessage"]
+
+        </div>
+    }
+    <br />
+
+    <table class="table text-center" id="tables" >
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@language.Getkey("Name")</th>
+                <th scope="col">@language.Getkey("Party")</th>
+                <th scope="col">@language.Getkey("Description")</th>
+                <th scope="col">@language.Getkey("Profile Picture")</th>
+                @*<th scope="col">Register Date</th>*@
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (CandidateModel candidate in Model)
+                {
+                    <tr>
+                        <th scope="row">@candidate.Id</th>
+                        <td>@candidate.Name</td>
+                        <td>@candidate.Party</td>
+                        <td>@candidate.Description</td>
+                        <td>@Html.DisplayFor(modelItem => candidate.Profile)</td>
+                        @*
+                        <td>@user.RegisterDate</td>
+                        *@
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-primary" asp-route-id="@candidate.Id" asp-controller="ElectoralAdminCandidate" asp-action="EditCandidate">@language.Getkey("Edit")</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@candidate.Id" asp-controller="ElectoralAdminCandidate" asp-action="DeleteCandidate">@language.Getkey("Delete")</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="5">@language.Getkey("No Candidates")</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>

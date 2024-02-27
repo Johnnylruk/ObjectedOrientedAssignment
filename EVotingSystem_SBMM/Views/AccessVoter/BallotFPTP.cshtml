@@ -1,0 +1,81 @@
+@model List<CandidateModel>
+@{
+    ViewData["Title"] = @language.Getkey("Ballot");
+    bool isEventActive = ViewData.ContainsKey("IsEventActive") ? (bool)ViewData["IsEventActive"] : false;
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">x</button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">x</button>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (isEventActive)
+{
+    <div class="text-center" id="selectedCandidateSection">
+        <h1 class="display-4">@language.Getkey("FPTP")</h1>
+        <h2>@language.Getkey("Selected Candidate")</h2>
+        @if (TempData["SelectedCandidateId"] != null)
+        {
+            int selectedCandidateId = Convert.ToInt32(TempData["SelectedCandidateId"]);
+            CandidateModel selectedCandidate = Model.FirstOrDefault(c => c.Id == selectedCandidateId);
+            if (selectedCandidate != null)
+            {
+                <div>
+                    <strong>@language.Getkey("Name"):</strong> @selectedCandidate.Name<br />
+                     <strong>@language.Getkey("Party"):</strong> @selectedCandidate.Party<br />
+                    <strong>@language.Getkey("Description"):</strong> @selectedCandidate.Description<br />
+                    <!-- Add any other details you want to display -->
+                </div>
+            }
+            else
+            {
+                <p>@language.Getkey("No Ballot")</p>
+            }
+        }
+        else
+        {
+            <p>@language.Getkey("No Candidate Selected")</p>
+        }
+        <hr />
+        <h2>@language.Getkey("Candidate List")</h2>
+        <!-- Display the list of candidates -->
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var candidate in Model)
+            {
+                <div>
+                    <strong>@language.Getkey("Name"):</strong> @candidate.Name<br />
+                     <strong>@language.Getkey("Party"):</strong> @candidate.Party<br />
+                    <strong>@language.Getkey("Description"):</strong> @candidate.Description<br />
+                    <!-- Add any other details you want to display -->
+                    <!-- Form to select the candidate -->
+                    <form method="post" asp-controller="Vote" asp-action="SubmitVoteFPTP">
+                        <input type="hidden" name="candidateId" value="@candidate.Id" />
+                        <button type="button" class="btn btn-primary" onclick="selectCandidate(@candidate.Id, '@Html.Raw(candidate.Name)', '@Html.Raw(candidate.Party)', '@Html.Raw(candidate.Description)')">Select</button>
+                    </form>
+                </div>
+                <hr />
+            }
+        }
+        else
+        {
+            <p>@language.Getkey("No candidates")</p>
+        }
+    </div>
+}
+else
+{
+    <p>@language.Getkey("No Event")</p>
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/site.js"></script>

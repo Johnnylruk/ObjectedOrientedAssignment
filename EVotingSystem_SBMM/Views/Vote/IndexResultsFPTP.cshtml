@@ -1,0 +1,78 @@
+@model List<VoteModel>;
+@{
+    ViewData["Title"] = @language.Getkey("Result");
+}
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-start">
+    <a asp-action="Index" role="button" asp-controller="Event" class="btn btn-primary">@language.Getkey("Back")</a>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">@language.Getkey("Result")</h1>
+    <br />
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a asp-action="Index" role="button" asp-controller="Event" class="btn btn-primary">@language.Getkey("Back")</a>
+    </div>
+    
+    @if (TempData["SuccessMessage"] != null)
+    {
+       <div class="alert alert-success" role="alert">
+          <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+          @TempData["SuccessMessage"]
+       </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <br />
+
+   <table class="table text-center"  id="tables" >
+          <thead>
+                 <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">@language.Getkey("Name")</th>
+                     <th scope="col">@language.Getkey("Party")</th>
+                     <th scope="col">@language.Getkey("Description")</th>
+                     <th scope="col">@language.Getkey("Count")</th>
+                     <th scope="col">@language.Getkey("Percentage")</th>
+                     <th scope="col">@language.Getkey("Winner")</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 @if (ViewBag.TotalVotes > 0)
+                 {
+                     foreach (var candidate in ViewBag.Candidates)
+                     {
+                         <tr>
+                             <th scope="row">@candidate.Id</th>
+                             <td>@candidate.Name</td>
+                             <td>@candidate.Party</td>
+                             <td>@candidate.Description</td>
+                             <td>@ViewBag.VoteCounts[candidate.Id]</td>
+                             <td>@string.Format("{0:0.00}%", ((double)ViewBag.VoteCounts[candidate.Id] / ViewBag.TotalVotes) * 100)</td>
+                             <td>
+                                 @if (candidate.Id == ViewBag.CandidateWithMaxVotesId)
+                                 {
+                                     <span class="badge bg-success">@language.Getkey("Elected")</span>
+                                 }
+                                 else
+                                 {
+                                     <span class="badge bg-danger">@language.Getkey("Not Elected")</span>
+                                 }
+                             </td>
+                         </tr>
+                     }
+                 }
+                 else
+                 {
+                     <tr>
+                         <td colspan="7">@language.Getkey("No Votes")</td>
+                     </tr>
+                 }
+             </tbody>
+         </table>
+</div>

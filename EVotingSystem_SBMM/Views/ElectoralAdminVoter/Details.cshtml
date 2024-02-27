@@ -1,0 +1,56 @@
+﻿@model VoterModel;
+
+
+<div>
+    <h4>Voter Details</h4>
+    <hr />
+
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <form class="mx-1 mx-md-4" asp-controller="ElectoralAdminVoter" asp-action="Details">
+
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                            <dd>
+                                <b>Name:</b> @Html.DisplayFor(model => model.Name)
+                            </dd>
+                            </dt>
+                            <dd>
+                                <b>Email:</b> @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <dd>
+                                <b>Contact Number:</b> @Html.DisplayFor(model => model.Mobile)
+                            </dd>
+                            <dd>
+                                <b>State/County:</b> @Html.DisplayFor(model => model.State)
+                            </dd>
+                            <dd>
+                                <b>City:</b> @Html.DisplayFor(model => model.City)
+                            </dd>
+                            <dd>
+                                <b>Address:</b> @Html.DisplayFor(model => model.Address)
+                            </dd>
+                            <dd>
+                                <b>Date of Birth:</b> @Html.DisplayFor(model => model.BirthDate)
+                            </dd>
+                            <</dl>/>
+                    </form>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
