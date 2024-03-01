@@ -9,7 +9,7 @@ public class PasswordHandle
         return hashedPassword == inputPassword;
         
     }
-    public static bool ValidatePassword2(string hashedPassword, string inputPassword)
+    public static bool CheckByInput(string hashedPassword, string inputPassword)
     {
         return  inputPassword == hashedPassword;
         

@@ -9,8 +9,9 @@ namespace EVotingSystem_SBMM.Repository
         VoterModel Register(VoterModel voter);
         VoterModel GetVoterbyId(int id);
         VoterModel UpdateVoter(VoterModel voter);
-        VoterModel GetByLogin(string login);
-        VoterModel GetByLoginAndEmail(string login, string email);
+        /*VoterModel GetByLogin(string login);
+        VoterModel GetByLoginAndEmail(string login, string email);*/
+
         bool DeleteVoter(int voterId);
         
         string  GetVoterCity();

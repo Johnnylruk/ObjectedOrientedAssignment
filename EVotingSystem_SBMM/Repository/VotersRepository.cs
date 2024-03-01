@@ -19,18 +19,18 @@ namespace EVotingSystem_SBMM.Repository
                 x => x.Id == id
                 ) ;
         }
-        public List<VoterModel> GetAll()
+        public  List<VoterModel> GetAll()
         {
             return _evotingSystem.Voters.ToList();
         }
         public VoterModel Register(VoterModel voter)
         {
-            voter.Password = Cryptography.GenerateHash(voter.Password);
+            voter.Password = voter.Password.GenerateHash();
+            voter.Passport = voter.Passport.GenerateHash();
             _evotingSystem.Voters.Add(voter);
             _evotingSystem.SaveChanges();
             return voter;
         }
-
         public VoterModel GetVoterbyId(int id)
         {   
             return _evotingSystem.Voters.FirstOrDefault(
@@ -76,7 +76,7 @@ namespace EVotingSystem_SBMM.Repository
             return null;        
         }
         
-        public VoterModel GetByLogin(string login)
+        /*public VoterModel GetByLogin(string login)
         {
             return _evotingSystem.Voters.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
         }
@@ -84,6 +84,6 @@ namespace EVotingSystem_SBMM.Repository
         public VoterModel GetByLoginAndEmail(string login, string email)
         {
             return _evotingSystem.Voters.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
-        }
+        }*/
     }
 }

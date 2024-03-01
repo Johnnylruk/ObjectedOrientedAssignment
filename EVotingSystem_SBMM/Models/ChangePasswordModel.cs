@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EVotingSystem_SBMM.Models;
 
-public class ChangePasswordModel
+public class ChangePasswordModel : BaseModel
 {
-    public int Id { get; set; }
 
     [Required(ErrorMessage = "Type your old password.")]
     public string OldPassword { get; set; }

@@ -20,7 +20,7 @@ namespace EVotingSystem_SBMM.Repository
         public UserModel Register(UserModel user)
         {
             user.RegisterDate = DateTime.Now;
-            user.Password = Cryptography.GenerateHash(user.Password);
+            user.Password = user.Password.GenerateHash();
             _evotingSystem.Users.Add(user);
             _evotingSystem.SaveChanges();
             return user;
@@ -59,10 +59,10 @@ namespace EVotingSystem_SBMM.Repository
 
         }
 
-        /*public UserModel GetByLogin(string login)
+        public UserModel GetByLogin(string login)
         {
             return _evotingSystem.Users.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
-        }*/
+        }
 
         public UserModel GetByLoginAndEmail(string login, string email)
         {
@@ -75,9 +75,9 @@ namespace EVotingSystem_SBMM.Repository
             //Checking user exist
             if (userDB == null) throw new Exception("Error when trying to update password. User not found.");
             // Checking password
-            if (!PasswordHandle.ValidatePassword2(changePasswordModel.OldPassword.GenerateHash(), userDB.Password)) throw new Exception("Error, you have input wrong password.");
+            if (!PasswordHandle.CheckByInput(changePasswordModel.OldPassword.GenerateHash(), userDB.Password)) throw new Exception("Error, you have input wrong password.");
             //Checking if new password equals with old password
-            if(PasswordHandle.ValidatePassword2(changePasswordModel.NewPassword, userDB.Password)) throw new Exception("Error, new password cannot be equal to old password.");
+            if(PasswordHandle.CheckByInput(changePasswordModel.NewPassword, userDB.Password)) throw new Exception("Error, new password cannot be equal to old password.");
             
             userDB.Password = PasswordHandle.HashPassword(changePasswordModel.NewPassword);
             userDB.UpdatedDate = DateTime.Now;

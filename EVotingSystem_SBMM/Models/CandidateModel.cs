@@ -3,13 +3,12 @@ using EVotingSystem_SBMM.Enums;
 
 namespace EVotingSystem_SBMM.Models;
 
-public class CandidateModel
+public class CandidateModel : BaseModel
 {
     public CandidateModel()
     {
         Votes = new List<VoteModel>();
     }
-    public int Id { get; set; }
     [Required(ErrorMessage = "Type candidate name.")]
     public string Name { get; set; }
     public string? Party { get; set; }
