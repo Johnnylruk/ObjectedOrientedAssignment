@@ -4,10 +4,9 @@ using EVotingSystem_SBMM.Helper;
 
 namespace EVotingSystem_SBMM.Models
 {
-    public class UserModel
+    public class UserModel : BaseModel
     {
 
-        public int Id { get; set; }
         [Required(ErrorMessage = "Type user name.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Type user login.")]

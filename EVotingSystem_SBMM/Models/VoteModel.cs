@@ -1,10 +1,9 @@
 namespace EVotingSystem_SBMM.Models;
 
 
-public class VoteModel
+public class VoteModel : BaseModel
 {
 
-    public int Id { get; set; }
     public DateTime VotedAtTime { get; set; }
     
     // Navigation properties

@@ -1,8 +1,7 @@
 namespace EVotingSystem_SBMM.Models;
 
-public class VotePreferenceModel
+public class VotePreferenceModel : BaseModel
 {
-    public int Id { get; set; }
     public int VoteId { get; set; }
     public virtual VoteModel Votes { get; set; }
     public int VoterId { get; set; }

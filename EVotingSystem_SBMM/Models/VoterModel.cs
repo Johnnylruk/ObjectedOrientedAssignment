@@ -3,9 +3,8 @@
 
     namespace EVotingSystem_SBMM.Models
     {
-        public class VoterModel
+        public class VoterModel : BaseModel
         {
-            public int Id { get; set; }
             [Required(ErrorMessage = "Type your full name.")]
             public string Name { get; set; }
             [Required(ErrorMessage = "Type your Email.")]

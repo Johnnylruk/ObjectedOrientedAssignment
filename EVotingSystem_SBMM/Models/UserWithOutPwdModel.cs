@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EVotingSystem_SBMM.Models
 {
-    public class UserWithOutPwdModel
+    public class UserWithOutPwdModel : BaseModel
     {
 
-        public int Id { get; set; }
         [Required(ErrorMessage = "Type user name.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Type user login.")]
