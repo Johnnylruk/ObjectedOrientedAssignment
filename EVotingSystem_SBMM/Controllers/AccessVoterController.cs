@@ -4,6 +4,7 @@ using EVotingSystem_SBMM.Helper;
 using EVotingSystem_SBMM.Models;
 using EVotingSystem_SBMM.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace EVotingSystem_SBMM.Controllers;
 
@@ -124,7 +125,7 @@ public class AccessVoterController : Controller
             return View(allEvents);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult Register(VoterModel voter)
         {
 
@@ -177,8 +178,68 @@ public class AccessVoterController : Controller
                     $"Ops, we could not register you. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index", "Login");
             }
-        }
+        }  */
+        [HttpPost]
+        public IActionResult RequestRegister(VoterModel voter)
+        {
 
+            VoterModel voterDB = _votersRepository.GetAll().FirstOrDefault(x =>
+                x.Passport == voter.Passport ||
+                x.Mobile == voter.Mobile ||
+                x.Login == voter.Login ||
+                x.Email == voter.Email);
+
+            string hashedPassport = voter.Passport.GenerateHash();
+            if (voter.BirthDate >= DateTime.Now.AddYears(-16))
+            {
+                ViewData["BirthDateError"] = "Voter is not older enough to vote.";
+                return View("Register", voter);
+            }
+
+            if (voterDB != null)
+            {
+                if (voterDB.Passport == hashedPassport)
+                {
+                    ViewData["PassportError"] = "Passport is already registered.";
+                    return View("Register", voter);
+                }
+                else if (voterDB.Mobile == voter.Mobile)
+                {
+                    ViewData["MobileError"] = "Mobile is already registered.";
+                    return View("Register", voter);
+                }
+                else if (voterDB.Login == voter.Login)
+                {
+                    ViewData["LoginError"] = "Login is already registered.";
+                    return View("Register", voter);
+                }
+                else if (voterDB.Email == voter.Email)
+                {
+                    ViewData["EmailError"] = "Email is already registered.";
+                    return View("Register", voter);
+                }
+            }
+            
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    voter.Profile = ProfileEnum.Voter;
+                    _votersRepository.SubmitRequest(voter);
+                    TempData["SuccessMessage"] = "You have successful registered.";
+                    return RedirectToAction("Index", "Login");    
+                }
+
+                return View("Index", voter);
+            }
+            catch (Exception error)
+            {
+                TempData["ErrorMessage"] =
+                    $"Ops, we could not register you. Please try again. Error details: {error.Message}";
+                return RedirectToAction("Index", "Login");
+            }
+        }
+        
         [HttpPost]
            public IActionResult UpdateVoter(VoterModel voter)
            {

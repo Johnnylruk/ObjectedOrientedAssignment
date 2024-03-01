@@ -5,6 +5,12 @@
     {
         public class VoterModel : BaseModel
         {
+
+            public VoterModel()
+            {
+                Votes = new List<VoteModel>();
+                PreferenceVotes = new List<VotePreferenceModel>();
+            }
             [Required(ErrorMessage = "Type your full name.")]
             public string Name { get; set; }
             [Required(ErrorMessage = "Type your Email.")]
@@ -32,8 +38,9 @@
             public string Passport { get; set; }
             
             public ProfileEnum? Profile { get; set; }
-            public ICollection<VoteModel> Votes { get; set; }
-            public ICollection<VotePreferenceModel> PreferenceVotes { get; set; }
+            public bool IsPending { get; set; }
+            public ICollection<VoteModel> Votes { get; set; } = new List<VoteModel>();
+            public ICollection<VotePreferenceModel> PreferenceVotes { get; set; } = new List<VotePreferenceModel>();
 
 
         }

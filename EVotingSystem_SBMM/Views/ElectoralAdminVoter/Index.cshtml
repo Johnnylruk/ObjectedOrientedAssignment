@@ -1,11 +1,23 @@
 ﻿@model List<VoterModel>
 @{
     ViewData["Title"] = @language.Getkey("Voters List");
+    int pendingVotersCount = ViewBag.PendingVotersCount;
+
 }
 <div class="text-center" xmlns="http://www.w3.org/1999/html">
     <h1 class="display-4">@language.Getkey("Voters List")</h1>
+
+ @if (pendingVotersCount > 0)
+    {
+        <span class="badge bg-danger">There are pending voters requesting approval.</span>
+    }
+    else
+    {
+        <span class="badge bg-success">There are no pending voters.</span>
+    }
+
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-success" role="button" asp-controller="ElectoralAdminVoter" asp-action="CreateVoter">@language.Getkey("Add Voter")</a>
+        <a class="btn btn-success" role="button" asp-controller="ElectoralAdminVoter" asp-action="PendingVoters">@language.Getkey("View Request")</a>
     </div>
     <br />
 
@@ -61,6 +73,9 @@
             {
                 <tr class="odd"><td valign="top" colspan="5">@language.Getkey("Voter has not been found.")</td></tr>
             }
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                <a class="btn btn-secondary" asp-controller="ElectoralAdminVoter" asp-action="Index">@language.Getkey("Back")</a>
+                </div>
         </tbody>
     </table>
 </div>

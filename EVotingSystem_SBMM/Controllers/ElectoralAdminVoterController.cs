@@ -3,6 +3,7 @@ using EVotingSystem_SBMM.Models;
 using EVotingSystem_SBMM.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace EVotingSystem_SBMM.Controllers
 {
@@ -20,8 +21,12 @@ namespace EVotingSystem_SBMM.Controllers
         public IActionResult Index()
         {
             List<VoterModel> voters =_votersRepository.GetAll();
+            var displayVoters = voters.Where(v => v.IsPending == false || v.IsPending == null).ToList();
+            int pendingVotersCount = voters.Count(v => v.IsPending);
+         
+            ViewBag.PendingVotersCount = pendingVotersCount;
 
-            return View(voters);
+            return View(displayVoters);
         }
 
         public IActionResult Details(int id)
@@ -30,10 +35,13 @@ namespace EVotingSystem_SBMM.Controllers
             return View(voterModel);
         }
 
-        public IActionResult CreateVoter()
+        public IActionResult PendingVoters()
         {
-            return View();
+            List<VoterModel> pendingVoters =_votersRepository.GetAll()
+                .Where(v => v.IsPending || v.IsPending == null).ToList();
+            return View(pendingVoters);
         }
+        
         public IActionResult EditVoter(int id)
         {
             VoterModel voterModel = _votersRepository.GetVoterbyId(id);
@@ -46,21 +54,26 @@ namespace EVotingSystem_SBMM.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateVoter(VoterModel voter)
+        public IActionResult ApproveVoters(VoterModel voter)
         {
             try
             {
+                if (ModelState.IsValid)
+                {
                     _votersRepository.Register(voter);
-                    TempData["SuccessMessage"] = "Voter has been created.";
+                    TempData["SuccessMessage"] = "Voter has been approved.";
                     return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
             }
             catch (Exception error)
             {
-                TempData["ErrorMessage"] = $"Ops, could not create a voter. Please try again. Error details: {error.Message}";
+                TempData["ErrorMessage"] =
+                    $"Ops, could not create a voter. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }
-            
         }
+
         [HttpPost]
         public IActionResult UpdateVoter(VoterModel voter)
         {

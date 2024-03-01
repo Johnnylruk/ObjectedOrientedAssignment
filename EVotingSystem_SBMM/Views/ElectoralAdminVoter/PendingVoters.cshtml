@@ -1,0 +1,27 @@
+﻿@model List<VoterModel>
+
+<div class="events-container">
+    @foreach (var voterModel in Model)
+    {
+        <div class="event-box text-white">
+            <div class="event-content">
+                <h2>Pending List</h2>
+                <p>@language.Getkey("Full Name"): @voterModel.Name </p>
+                <p>@language.Getkey("Email"): @voterModel.Email</p>
+                <p>@language.Getkey("Login"): @voterModel.Login</p>
+                <p>@language.Getkey("Address"): @voterModel.Address</p>
+                <p>@language.Getkey("State"): @voterModel.State  </p>
+                <p>@language.Getkey("City"): @voterModel.City</p>
+                <p>@language.Getkey("BirthDate"): @voterModel.BirthDate</p>
+                <!-- Add any other event details you want to display -->
+                <div>
+                    <a role="button" class="btn btn-success" asp-controller="ElectoralAdminVoter" asp-action="ApproveVoters">@language.Getkey("Approve")</a>
+                    <a role="button" class="btn btn-danger" asp-route-id="@voterModel.Id" asp-controller="ElectoralAdminVoter" asp-action="DeleteVoter">@language.Getkey("Deny")</a>
+                </div>
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <a class="btn btn-secondary" asp-controller="ElectoralAdminVoter" asp-action="Index">@language.Getkey("Back")</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

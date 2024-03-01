@@ -25,8 +25,7 @@ namespace EVotingSystem_SBMM.Repository
         }
         public VoterModel Register(VoterModel voter)
         {
-            voter.Password = voter.Password.GenerateHash();
-            voter.Passport = voter.Passport.GenerateHash();
+            voter.IsPending = false;
             _evotingSystem.Voters.Add(voter);
             _evotingSystem.SaveChanges();
             return voter;
@@ -76,6 +75,15 @@ namespace EVotingSystem_SBMM.Repository
             return null;        
         }
         
+        public VoterModel SubmitRequest(VoterModel voter)
+        {
+            voter.IsPending = true;
+            voter.Password = voter.Password.GenerateHash();
+            voter.Passport = voter.Passport.GenerateHash();
+            _evotingSystem.Voters.Add(voter);
+            _evotingSystem.SaveChanges();
+            return voter;
+        }
         /*public VoterModel GetByLogin(string login)
         {
             return _evotingSystem.Voters.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());

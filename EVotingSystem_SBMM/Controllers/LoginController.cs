@@ -47,7 +47,14 @@ public class LoginController : Controller
         var voter = _loginRepository.GetVoterByLogin(login);
         if (voter != null && PasswordHandle.ValidatePassword(hashPassword, voter.Password))
         {
-            return voter;
+            if (voter.IsPending)
+            {
+                TempData["ErrorMessage"] = "Invalid Password";
+                return null;
+            }else
+            {
+                return voter;
+            }
         }
         
         return null;
