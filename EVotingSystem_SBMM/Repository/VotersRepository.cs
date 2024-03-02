@@ -30,14 +30,14 @@ namespace EVotingSystem_SBMM.Repository
             _evotingSystem.SaveChanges();
             return voter;
         }
-        public VoterModel GetVoterbyId(int id)
+        public VoterModel GetVoterById(int id)
         {   
             return _evotingSystem.Voters.FirstOrDefault(
                 x => x.Id == id );
         }
         public VoterModel UpdateVoter(VoterModel voter)
         {
-            VoterModel voterDb = GetVoterbyId(voter.Id);
+            VoterModel voterDb = GetVoterById(voter.Id);
             if (voterDb == null) throw new Exception("Error when trying to update voter");
 
             voterDb.Name = voter.Name;
@@ -56,7 +56,7 @@ namespace EVotingSystem_SBMM.Repository
 
         public bool DeleteVoter(int voter)
         {
-            VoterModel voterDb = GetVoterbyId(voter);
+            VoterModel voterDb = GetVoterById(voter);
             if (voterDb == null) throw new Exception("Error when trying to update voter");
 
             _evotingSystem.Remove(voterDb);
@@ -94,7 +94,7 @@ namespace EVotingSystem_SBMM.Repository
         }
         public VoterModel DenyVoterRequest(VoterModel voter)
         {
-            VoterModel voterDb = GetVoterbyId(voter.Id);
+            VoterModel voterDb = GetVoterById(voter.Id);
             _evotingSystem.Voters.Remove(voterDb);
             _evotingSystem.SaveChanges();
             return voter;

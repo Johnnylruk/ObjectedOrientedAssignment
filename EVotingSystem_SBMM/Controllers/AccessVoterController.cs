@@ -100,7 +100,7 @@ public class AccessVoterController : Controller
         public IActionResult UpdateVoter(int id)
         {
             var voterId = _userSession.GetVoterSession();
-            VoterModel voterModel = _votersRepository.GetVoterbyId(voterId.Id);
+            VoterModel voterModel = _votersRepository.GetVoterById(voterId.Id);
             return View(voterModel);
         }
 
@@ -191,7 +191,7 @@ public class AccessVoterController : Controller
            {
                try
                {
-                   _votersRepository.GetVoterbyId(voter.Id);
+                   _votersRepository.GetVoterById(voter.Id);
                    _votersRepository.UpdateVoter(voter);
                    TempData["SuccessMessage"] = "Voter has been updated.";
                    return RedirectToAction("Index");

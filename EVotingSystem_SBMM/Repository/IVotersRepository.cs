@@ -9,7 +9,7 @@ namespace EVotingSystem_SBMM.Repository
         VoterModel Register(VoterModel voter);
         VoterModel SubmitRequest(VoterModel voter);
 
-        VoterModel GetVoterbyId(int id);
+        VoterModel GetVoterById(int id);
         VoterModel UpdateVoter(VoterModel voter);
         public VoterModel ApproveVoterRequest(VoterModel voter);
         public VoterModel DenyVoterRequest(VoterModel voter);

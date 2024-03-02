@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EVotingSystem_SBMM")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e3fcf180fbe49eec4cf363e9211f7067ec964fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd303b682251f9387fdf2f1d467abd39b21a6a4d")]
 [assembly: System.Reflection.AssemblyProductAttribute("EVotingSystem_SBMM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EVotingSystem_SBMM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -3,8 +3,6 @@ using EVotingSystem_SBMM.Helper;
 using EVotingSystem_SBMM.Models;
 using EVotingSystem_SBMM.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace EVotingSystem_SBMM.Controllers
 {
@@ -23,7 +21,7 @@ namespace EVotingSystem_SBMM.Controllers
         public IActionResult Index()
         {
             List<VoterModel> voters =_votersRepository.GetAll();
-            var displayVoters = voters.Where(v => v.IsPending == false || v.IsPending == null).ToList();
+            var displayVoters = voters.Where(v => v.IsPending == false).ToList();
             int pendingVotersCount = voters.Count(v => v.IsPending);
          
             ViewBag.PendingVotersCount = pendingVotersCount;
@@ -40,18 +38,18 @@ namespace EVotingSystem_SBMM.Controllers
         public IActionResult PendingVoters()
         {
             List<VoterModel> pendingVoters =_votersRepository.GetAll()
-                .Where(v => v.IsPending || v.IsPending == null).ToList();
+                .Where(v => v.IsPending).ToList();
             return View(pendingVoters);
         }
         
         public IActionResult EditVoter(int id)
         {
-            VoterModel voterModel = _votersRepository.GetVoterbyId(id);
+            VoterModel voterModel = _votersRepository.GetVoterById(id);
             return View(voterModel);
         }
         public IActionResult DeleteVoter(int id)
         {
-            VoterModel voterModel = _votersRepository.GetVoterbyId(id);
+            VoterModel voterModel = _votersRepository.GetVoterById(id);
             return View(voterModel);
         }
 
@@ -60,7 +58,7 @@ namespace EVotingSystem_SBMM.Controllers
         {
             try
             {
-                voter = _votersRepository.GetVoterbyId(voterId);
+                voter = _votersRepository.GetVoterById(voterId);
                 string message = "Your voter request has been approved";
                 if (voter != null)
                 {
@@ -69,6 +67,7 @@ namespace EVotingSystem_SBMM.Controllers
                     TempData["SuccessMessage"] = "Voter has been approved.";
                     return RedirectToAction("Index" , "ElectoralAdminVoter");
                 }
+                TempData["ErrorMessage"] = "Ops, could not find a voter.";
                 return RedirectToAction("Index");
             }
             catch (Exception error)
@@ -78,15 +77,20 @@ namespace EVotingSystem_SBMM.Controllers
                 return RedirectToAction("Index");
             }
         }
+        
         [HttpPost]
-        public IActionResult UpdateVoter(VoterModel voter)
+        public IActionResult EditVoter(VoterModel voter)
         {
             try
             {
+                if (ModelState.IsValid)
+                {
                     _votersRepository.UpdateVoter(voter);
                     TempData["SuccessMessage"] = "Voter has been updated.";
                     return RedirectToAction("Index");
 
+                }
+                return View(voter);
             }
             catch (Exception error)
             {
@@ -99,16 +103,15 @@ namespace EVotingSystem_SBMM.Controllers
         {
             try
             {
-                voter = _votersRepository.GetVoterbyId(voterId);
+                voter = _votersRepository.GetVoterById(voterId);
                 if (voter != null)
                 {
                     _votersRepository.DenyVoterRequest(voter);
-                    TempData["SuccessMessage"] = "Voter has been deleted.";
-                    
+                    TempData["SuccessMessage"] = "Voter has been refused and deleted from database.";
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Voter not found.";
+                    TempData["ErrorMessage"] = "Ops, could not find a voter.";
                 }
                 return RedirectToAction("Index");
 
@@ -125,16 +128,21 @@ namespace EVotingSystem_SBMM.Controllers
         {
             try
             {
-                bool deleted = _votersRepository.DeleteVoter(voter.Id);
-                if (deleted)
+                if (ModelState.IsValid)
                 {
-                    TempData["SuccessMessage"] = "Voter has been deleted.";
+                    bool deleted = _votersRepository.DeleteVoter(voter.Id);
+                    if (deleted)
+                    {
+                        TempData["SuccessMessage"] = "Voter has been deleted.";
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Voter not found.";
+                    }
+                    return RedirectToAction("Index");    
                 }
-                else
-                {
-                    TempData["ErrorMessage"] = "Voter not found.";
-                }
-                return RedirectToAction("Index");
+
+                return View(voter);
 
             }
             catch (Exception error)
