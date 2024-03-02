@@ -49,7 +49,6 @@ public class LoginController : Controller
         {
             if (voter.IsPending)
             {
-                TempData["ErrorMessage"] = "Invalid Password";
                 return null;
             }else
             {
@@ -76,6 +75,11 @@ public class LoginController : Controller
                     _userSession.CreateSession(null, voterModel); 
                     return RedirectToAction("Index", "AccessVoter");
                 }
+            }
+            else if (Profile == null)
+            {
+                TempData["ErrorMessage"] = "Approval Pending, you will receive an email once you have been approved.";
+                return View("Index");
             }
             else
             {

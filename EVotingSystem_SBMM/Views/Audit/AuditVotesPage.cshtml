@@ -2,9 +2,7 @@
 
 <input type="hidden" id="eventId" value="@ViewBag.EventId" />
 
-<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-    <a class="btn btn-secondary" asp-controller="Audit" asp-action="Index">@language.Getkey("Back")</a>
-</div>
+
 
 <h3 class="text-uppercase text-center">@language.Getkey("List for Audit")</h3>
 <table class="table text-center" id="AuditTable" >
@@ -19,7 +17,9 @@
     </tr>
     </thead>
     </table>
-
+<div class="d-flex justify-content-sm-end mx-4 mb-3 mb-lg-4">
+    <a class="btn btn-secondary" asp-controller="Audit" asp-action="Index">@language.Getkey("Back")</a>
+</div>
 @section Scripts
 {
     <script type="text/javascript">

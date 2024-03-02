@@ -92,5 +92,12 @@ namespace EVotingSystem_SBMM.Repository
             _evotingSystem.SaveChanges();
             return voter;
         }
+        public VoterModel DenyVoterRequest(VoterModel voter)
+        {
+            VoterModel voterDb = GetVoterbyId(voter.Id);
+            _evotingSystem.Voters.Remove(voterDb);
+            _evotingSystem.SaveChanges();
+            return voter;
+        }
     }
 }

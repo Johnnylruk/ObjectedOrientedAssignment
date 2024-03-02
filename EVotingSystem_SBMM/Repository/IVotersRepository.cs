@@ -11,9 +11,8 @@ namespace EVotingSystem_SBMM.Repository
 
         VoterModel GetVoterbyId(int id);
         VoterModel UpdateVoter(VoterModel voter);
-        /*VoterModel GetByLogin(string login);
-        VoterModel GetByLoginAndEmail(string login, string email);*/
         public VoterModel ApproveVoterRequest(VoterModel voter);
+        public VoterModel DenyVoterRequest(VoterModel voter);
 
         
         bool DeleteVoter(int voterId);
