@@ -10,35 +10,61 @@ $(document).ready(function () {
             "className": "text-center" // Apply 'text-center' class to center align content
         }]
     });
+});
 
-    $('.btn-approve-voter, .btn-deny-voter').click(function (){
+$(document).ready(function () {
+//this is to open the modal
+    $(document).on('click', '.btn-approve-voter', function (){
         var voterId = $(this).attr('data-voter-id');
-        $('.btn-save-changes').data('voterId', voterId); // store voterId in save button
-        if($(this).hasClass('btn-approve-voter')){
-            $('#pendingApprovalModal').modal();
-        } else {
-            $('#pendingDenyModal').modal();
-        }
+        $('.btn-approve-save').data('voterId', voterId);
+        $('#pendingApprovalModal').modal();
     });
+    
+});
 
-    $('.btn-save-changes').click(function (){
+    $(document).on('click', '.btn-deny-voter', function (){
+        var voterId = $(this).attr('data-voter-id');
+        $('.btn-deny-save').data('voterId', voterId); 
+        $('#pendingDenyModal').modal();
+    });
+    
+    //This is for closing when I click on close
+    $(document).on('click', '.btn-deny-close', function (){
+        $('#pendingDenyModal').modal('hide');
+    });
+    $(document).on('click', '.btn-approve-close', function (){
+        $('#pendingApprovalModal').modal('hide');
+    });
+    //This is after I click save changes 
+    $(document).on('click', '.btn-approve-save', function (){
         var voterId = $(this).data('voterId'); // retrieve voterId from save button
         $.ajax({
             url: approveVotersUrl,
             type: 'POST',
             dataType: 'json',
             data: { voterId: voterId },
-            success: function (response) {
-                $('#pendingApprovalModal').modal('hide');
-                $('#pendingDenyModal').modal('hide');
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
         });
+            $('#pendingApprovalModal').modal('hide');
     });
+    
+    $(document).on('click', '.btn-deny-save', function (){
+        var voterId = $(this).data('voterId'); 
+        $.ajax({
+            url: denyVotersUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: { voterId: voterId },
+        });
+            $('#pendingDenyModal').modal('hide');
+    });
+    
+// Refresh the page
+$('#pendingApprovalModal').on('hidden.bs.modal', function () {
+    location.reload(); 
 });
-
+$('#pendingDenyModal').on('hidden.bs.modal', function () {
+    location.reload(); 
+});
 
 //Voting SPTP redirecting to other page before click vote
 function selectCandidate(candidateId, name, party, description) {

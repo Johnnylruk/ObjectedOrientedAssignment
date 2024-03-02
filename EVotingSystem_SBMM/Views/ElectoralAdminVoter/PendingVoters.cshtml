@@ -25,7 +25,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirm choice</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close btn-deny-close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -33,8 +33,8 @@
                     <p class="text-danger">Are you sure you want to refuse this voter?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" asp-action="DeleteVoter" asp-controller="ElectoralAdminVoter" >Save changes</button>
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger btn-deny-save">Save changes</button>
+                    <button type="button" class="btn btn-secondary btn-deny-close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirm choice</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close btn-approve-close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -52,8 +52,8 @@
                     <p class="text-danger">Are you sure you want to approve this voter?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success btn-save-changes">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success btn-approve-save">Save changes</button>
+                    <button type="button" class="btn btn-secondary btn-approve-close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -61,5 +61,6 @@
 </div>
 
 <script type="text/javascript">
-    var approveVotersUrl = '@Url.Action("ApproveVoters", "ElectoralAdminVoter")';
+    var approveVotersUrl = '@Url.Action("ApproveVoter", "ElectoralAdminVoter")';
+    var denyVotersUrl = '@Url.Action("RefuseVoter","ElectoralAdminVoter")';
 </script>

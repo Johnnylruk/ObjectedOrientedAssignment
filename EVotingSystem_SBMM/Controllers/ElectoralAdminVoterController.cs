@@ -1,4 +1,5 @@
 ﻿using EVotingSystem_SBMM.Filters;
+using EVotingSystem_SBMM.Helper;
 using EVotingSystem_SBMM.Models;
 using EVotingSystem_SBMM.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,11 @@ namespace EVotingSystem_SBMM.Controllers
     public class ElectoralAdminVoterController : Controller
     {
         private readonly IVotersRepository _votersRepository;
-        
-        public ElectoralAdminVoterController(IVotersRepository votersRepository)
+        private readonly IEmail _email;
+        public ElectoralAdminVoterController(IVotersRepository votersRepository, IEmail email)
         {
             _votersRepository = votersRepository;
+            _email = email;
         }
 
         //Voter Administration
@@ -54,28 +56,28 @@ namespace EVotingSystem_SBMM.Controllers
         }
 
         [HttpPost]
-        public IActionResult ApproveVoters(VoterModel voter, int voterId)
+        public IActionResult ApproveVoter(VoterModel voter, int voterId)
         {
             try
             {
                 voter = _votersRepository.GetVoterbyId(voterId);
-
+                string message = "Your voter request has been approved";
                 if (voter != null)
                 {
                     _votersRepository.ApproveVoterRequest(voter);
+                    _email.SendEmailLink(voter.Email,"EVoting System SBMM -" ,message);
                     TempData["SuccessMessage"] = "Voter has been approved.";
                     return RedirectToAction("Index" , "ElectoralAdminVoter");
                 }
-                return RedirectToAction("PendingVoters");
+                return RedirectToAction("Index");
             }
             catch (Exception error)
             {
                 TempData["ErrorMessage"] =
-                    $"Ops, could not create a voter. Please try again. Error details: {error.Message}";
+                    $"Ops, could not approve a voter. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }
         }
-
         [HttpPost]
         public IActionResult UpdateVoter(VoterModel voter)
         {
@@ -93,14 +95,16 @@ namespace EVotingSystem_SBMM.Controllers
             }
         }
         [HttpPost]
-        public IActionResult RefuseVoter(VoterModel voter)
+        public IActionResult RefuseVoter(VoterModel voter, int voterId)
         {
             try
             {
-                bool deleted = _votersRepository.DeleteVoter(voter.Id);
-                if (deleted)
+                voter = _votersRepository.GetVoterbyId(voterId);
+                if (voter != null)
                 {
+                    _votersRepository.DenyVoterRequest(voter);
                     TempData["SuccessMessage"] = "Voter has been deleted.";
+                    
                 }
                 else
                 {

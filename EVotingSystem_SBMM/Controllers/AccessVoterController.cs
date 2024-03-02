@@ -125,60 +125,6 @@ public class AccessVoterController : Controller
             return View(allEvents);
         }
 
-        /*[HttpPost]
-        public IActionResult Register(VoterModel voter)
-        {
-
-            VoterModel voterDB = _votersRepository.GetAll().FirstOrDefault(x =>
-                x.Passport == voter.Passport ||
-                x.Mobile == voter.Mobile ||
-                x.Login == voter.Login ||
-                x.Email == voter.Email);
-
-            if (voter.BirthDate >= DateTime.Now.AddYears(-16))
-            {
-                ViewData["BirthDateError"] = "Voter is not older enough to vote.";
-                return View();
-            }
-
-            if (voterDB != null)
-            {
-                if (voterDB.Passport == voter.Passport)
-                {
-                    ViewData["PassportError"] = "Passport is already registered.";
-                    return View();
-                }
-                else if (voterDB.Mobile == voter.Mobile)
-                {
-                    ViewData["MobileError"] = "Mobile is already registered.";
-                    return View();
-                }
-                else if (voterDB.Login == voter.Login)
-                {
-                    ViewData["LoginError"] = "Login is already registered.";
-                    return View();
-                }
-                else if (voterDB.Email == voter.Email)
-                {
-                    ViewData["EmailError"] = "Email is already registered.";
-                    return View();
-                }
-            }
-
-            try
-            {
-                voter.Profile = ProfileEnum.Voter;
-                _votersRepository.Register(voter);
-                TempData["SuccessMessage"] = "You have successful registered.";
-                return RedirectToAction("Index", "Login");
-            }
-            catch (Exception error)
-            {
-                TempData["ErrorMessage"] =
-                    $"Ops, we could not register you. Please try again. Error details: {error.Message}";
-                return RedirectToAction("Index", "Login");
-            }
-        }  */
         [HttpPost]
         public IActionResult RequestRegister(VoterModel voter)
         {
