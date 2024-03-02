@@ -15,7 +15,7 @@ public class AuditController : Controller
     private readonly IEventRepository _eventRepository;
     
 
-    public AuditController(EVotingSystemDB eVotingSystemDb, IVoteRepository voteRepository, IEventRepository eventRepository)
+    public AuditController(EVotingSystemDB eVotingSystemDb,IEventRepository eventRepository)
     {
         _evotingSystemDB = eVotingSystemDb;
         _eventRepository = eventRepository;
