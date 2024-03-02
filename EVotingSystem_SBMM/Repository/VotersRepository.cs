@@ -84,14 +84,13 @@ namespace EVotingSystem_SBMM.Repository
             _evotingSystem.SaveChanges();
             return voter;
         }
-        /*public VoterModel GetByLogin(string login)
-        {
-            return _evotingSystem.Voters.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
-        }
 
-        public VoterModel GetByLoginAndEmail(string login, string email)
+        public VoterModel ApproveVoterRequest(VoterModel voter)
         {
-            return _evotingSystem.Voters.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
-        }*/
+            voter.IsPending = false;
+            _evotingSystem.Voters.Update(voter);
+            _evotingSystem.SaveChanges();
+            return voter;
+        }
     }
 }

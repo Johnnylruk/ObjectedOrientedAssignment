@@ -226,8 +226,8 @@ public class AccessVoterController : Controller
                 {
                     voter.Profile = ProfileEnum.Voter;
                     _votersRepository.SubmitRequest(voter);
-                    TempData["SuccessMessage"] = "You have successful registered.";
-                    return RedirectToAction("Index", "Login");    
+                    TempData["SuccessMessage"] = "You have successful registered. A approval or refusal email will be sent to you once we revise your register. Thank you!";
+                    return RedirectToAction("Index", "Login");
                 }
 
                 return View("Index", voter);

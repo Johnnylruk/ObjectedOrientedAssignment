@@ -402,4 +402,19 @@
   <data name="Voter" xml:space="preserve">
     <value>Voter</value>
   </data>
+  <data name="Passport" xml:space="preserve">
+    <value>Passport</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve voter</value>
+  </data>
+  <data name="Deny" xml:space="preserve">
+    <value>Refuse voter</value>
+  </data>
+  <data name="Pending voter requesting" xml:space="preserve">
+    <value>There are pending voters requesting approval.</value>
+  </data>
+  <data name="No pending voter requesting" xml:space="preserve">
+    <value>There are no pending voters to approve.</value>
+  </data>
 </root>

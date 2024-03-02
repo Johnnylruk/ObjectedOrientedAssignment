@@ -13,15 +13,53 @@
                 <p>@language.Getkey("State"): @voterModel.State  </p>
                 <p>@language.Getkey("City"): @voterModel.City</p>
                 <p>@language.Getkey("BirthDate"): @voterModel.BirthDate</p>
-                <!-- Add any other event details you want to display -->
                 <div>
-                    <a role="button" class="btn btn-success" asp-controller="ElectoralAdminVoter" asp-action="ApproveVoters">@language.Getkey("Approve")</a>
-                    <a role="button" class="btn btn-danger" asp-route-id="@voterModel.Id" asp-controller="ElectoralAdminVoter" asp-action="DeleteVoter">@language.Getkey("Deny")</a>
-                </div>
-                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <a class="btn btn-secondary" asp-controller="ElectoralAdminVoter" asp-action="Index">@language.Getkey("Back")</a>
+                    <a href="#" class="btn btn-success btn-approve-voter" data-bs-toggle="modal" data-bs-target="#pendingApprovalModal" data-voter-id="@voterModel.Id" >@language.Getkey("Approve")</a>
+                    <a href="#" class="btn btn-danger btn-deny-voter" data-bs-toggle="modal" data-bs-target="#pendingDenyModal" data-voter-id="@voterModel.Id">@language.Getkey("Deny")</a>    
                 </div>
             </div>
         </div>
     }
+    <div class="modal" id="pendingDenyModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm choice</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">Are you sure you want to refuse this voter?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" asp-action="DeleteVoter" asp-controller="ElectoralAdminVoter" >Save changes</button>
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="pendingApprovalModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm choice</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">Are you sure you want to approve this voter?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-save-changes">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    var approveVotersUrl = '@Url.Action("ApproveVoters", "ElectoralAdminVoter")';
+</script>

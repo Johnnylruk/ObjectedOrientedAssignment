@@ -10,7 +10,35 @@ $(document).ready(function () {
             "className": "text-center" // Apply 'text-center' class to center align content
         }]
     });
+
+    $('.btn-approve-voter, .btn-deny-voter').click(function (){
+        var voterId = $(this).attr('data-voter-id');
+        $('.btn-save-changes').data('voterId', voterId); // store voterId in save button
+        if($(this).hasClass('btn-approve-voter')){
+            $('#pendingApprovalModal').modal();
+        } else {
+            $('#pendingDenyModal').modal();
+        }
+    });
+
+    $('.btn-save-changes').click(function (){
+        var voterId = $(this).data('voterId'); // retrieve voterId from save button
+        $.ajax({
+            url: approveVotersUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: { voterId: voterId },
+            success: function (response) {
+                $('#pendingApprovalModal').modal('hide');
+                $('#pendingDenyModal').modal('hide');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
 });
+
 
 //Voting SPTP redirecting to other page before click vote
 function selectCandidate(candidateId, name, party, description) {
@@ -142,3 +170,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink))
 });
+

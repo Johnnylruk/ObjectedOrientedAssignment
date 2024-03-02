@@ -54,17 +54,19 @@ namespace EVotingSystem_SBMM.Controllers
         }
 
         [HttpPost]
-        public IActionResult ApproveVoters(VoterModel voter)
+        public IActionResult ApproveVoters(VoterModel voter, int voterId)
         {
             try
             {
-                if (ModelState.IsValid)
+                voter = _votersRepository.GetVoterbyId(voterId);
+
+                if (voter != null)
                 {
-                    _votersRepository.Register(voter);
+                    _votersRepository.ApproveVoterRequest(voter);
                     TempData["SuccessMessage"] = "Voter has been approved.";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index" , "ElectoralAdminVoter");
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("PendingVoters");
             }
             catch (Exception error)
             {
@@ -91,6 +93,30 @@ namespace EVotingSystem_SBMM.Controllers
             }
         }
         [HttpPost]
+        public IActionResult RefuseVoter(VoterModel voter)
+        {
+            try
+            {
+                bool deleted = _votersRepository.DeleteVoter(voter.Id);
+                if (deleted)
+                {
+                    TempData["SuccessMessage"] = "Voter has been deleted.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Voter not found.";
+                }
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception error)
+            {
+
+                TempData["ErrorMessage"] = $"Ops, could not delete a voter. Please try again. Error details: {error.Message}";
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
         public IActionResult DeleteVoter(VoterModel voter)
         {
             try
@@ -113,7 +139,6 @@ namespace EVotingSystem_SBMM.Controllers
                 TempData["ErrorMessage"] = $"Ops, could not delete a voter. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }
-
         }
       
         

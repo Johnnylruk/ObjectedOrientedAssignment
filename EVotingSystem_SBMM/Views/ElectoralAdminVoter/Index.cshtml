@@ -9,11 +9,11 @@
 
  @if (pendingVotersCount > 0)
     {
-        <span class="badge bg-danger">There are pending voters requesting approval.</span>
+        <span class="badge bg-danger">@language.Getkey("Pending voter requesting")</span>
     }
     else
     {
-        <span class="badge bg-success">There are no pending voters.</span>
+        <span class="badge bg-success">@language.Getkey("No pending voter requesting")</span>
     }
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
@@ -73,7 +73,7 @@
             {
                 <tr class="odd"><td valign="top" colspan="5">@language.Getkey("Voter has not been found.")</td></tr>
             }
-                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                <div class="d-flex justify-content-sm-end mx-4 mb-3 mb-lg-4">
                 <a class="btn btn-secondary" asp-controller="ElectoralAdminVoter" asp-action="Index">@language.Getkey("Back")</a>
                 </div>
         </tbody>
