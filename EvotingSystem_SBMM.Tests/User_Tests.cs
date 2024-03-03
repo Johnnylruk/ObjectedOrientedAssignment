@@ -120,7 +120,7 @@ public class User_Tests
         var httpContext = new DefaultHttpContext();
         var userModel = Builder<UserModel>.CreateNew().Build();
         _userRepository.Setup(repo => repo.Register(userModel)).Verifiable();
-        _userController.ModelState.Clear(); // Ensure ModelState is valid
+        _userController.ModelState.Clear(); 
         _userController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
         {
             ["SuccessMessage"] = "User has been created."

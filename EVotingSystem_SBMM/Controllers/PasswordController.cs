@@ -17,7 +17,7 @@ public class PasswordController : Controller
         _userSession = userSession;
         _email = email;
     }
-    public IActionResult Index()
+    public IActionResult ChangePassword()
     {
         return View();
     }
@@ -41,15 +41,15 @@ public class PasswordController : Controller
             {
                 _usersRepository.ChangePassword(changePasswordModel);
                 TempData["SuccessMessage"] = "Password has been successful updated.";
-                return RedirectToAction("Index", changePasswordModel);
+                return RedirectToAction("ChangePassword", changePasswordModel);
             }
-
-            return View("Index", changePasswordModel);
+            TempData["ErrorMessage"] = "Error trying to update your password.";
+            return View("ChangePassword", changePasswordModel);
         }
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"We could not change your password, please try again. {error.Message}";
-            return View("Index", changePasswordModel);
+            return View("ChangePassword", changePasswordModel);
         }
     }
     [HttpPost]
@@ -84,12 +84,12 @@ public class PasswordController : Controller
                     return RedirectToAction("Index" , "Login");
                 }
             }
-            return View("Index");
+            return View("ChangePassword");
         }
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Ops, We could not reset your password.{error.Message}";
-            return RedirectToAction("Index");
+            return RedirectToAction("ChangePassword");
         }
     }
 }
