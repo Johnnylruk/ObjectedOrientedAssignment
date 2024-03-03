@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace EVotingSystem_SBMM.Models;
 
 public class VotePreferenceModel : BaseModel
@@ -12,8 +14,8 @@ public class VotePreferenceModel : BaseModel
     public virtual CandidateModel Candidates { get; set; }
     
     public int Rank { get; set; }
-
-    public int? EventId { get; set; }
+    
+    public int EventId { get; set; }
     
     public virtual EventModel Event { get; set; }
     

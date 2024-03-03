@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using EVotingSystem_SBMM.Enums;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EVotingSystem_SBMM.Models;
 
@@ -8,7 +9,7 @@ public class EventModel
     public EventModel()
     {
         Votes = new List<VoteModel>();
-
+        VotePreference = new List<VotePreferenceModel>();
     }
     public int EventId { get; set; }
     [Required(ErrorMessage = "Type event name.")]
@@ -27,6 +28,5 @@ public class EventModel
     [Display(Name = "Event Type")]
     public EventTypeEnum EventType { get; set; }
     public ICollection<VoteModel> Votes { get; set; }  = new List<VoteModel>();
-
-
+    public ICollection<VotePreferenceModel> VotePreference { get; set; } = new List<VotePreferenceModel>();
 }

@@ -56,8 +56,9 @@ namespace EVotingSystem_SBMM.Data
             
             modelBuilder.Entity<VotePreferenceModel>()
                 .HasOne(vp => vp.Event)
-                .WithMany()
-                .HasForeignKey(vp => vp.EventId);
+                .WithMany(e => e.VotePreference)
+                .HasForeignKey(vp => vp.EventId)
+                .IsRequired();
             
             modelBuilder.Entity<VotePreferenceModel>()
                 .HasOne(vp => vp.Voters)

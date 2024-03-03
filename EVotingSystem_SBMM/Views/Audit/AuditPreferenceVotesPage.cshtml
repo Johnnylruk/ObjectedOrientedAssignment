@@ -10,10 +10,10 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">@language.Getkey("VoteId")</th>
-        <th scope="col">@language.Getkey("VoterId")</th>
         <th scope="col">@language.Getkey("CandidateId")</th>
         <th scope="col">@language.Getkey("Rank")</th>
         <th scope="col">@language.Getkey("EventId")</th>
+        <th scope="col">@language.Getkey("VoterId")</th>
     </tr>
     </thead>
     </table>
@@ -40,10 +40,11 @@
             "columns": [
                 {'data' : 'id'},
                 {'data' :'voteId' },
-                {'data' :'voterId' },
                 {'data' :'candidateId' },
                 {'data' :'rank' },
-                {'data' :'eventId' }
+                {'data' :'eventId' },
+                {'data' :'voterId' }
+
             ],
             "dom" : 'Bfrtip',
             "buttons": [

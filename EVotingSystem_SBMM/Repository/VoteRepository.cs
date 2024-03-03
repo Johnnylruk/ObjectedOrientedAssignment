@@ -55,7 +55,20 @@ public class VoteRepository : IVoteRepository
                 _evotingSystem.SaveChanges();
             }
     }
-
+    public List<VoteModel> GetVotesByEventId(int eventId)
+    {
+        
+        return _evotingSystem.Votes
+            .Where(v => v.EventId == eventId)
+            .ToList();
+    }
+    public List<VotePreferenceModel> GetPreferenceVotesByEventId(int? eventId)
+    {
+        
+        return _evotingSystem.VotePreferences
+            .Where(v => v.EventId == eventId)
+            .ToList();
+    }
     public List<VotePreferenceModel> GetSTVVotesByEventId(int voteId)
     {
         return _evotingSystem.VotePreferences

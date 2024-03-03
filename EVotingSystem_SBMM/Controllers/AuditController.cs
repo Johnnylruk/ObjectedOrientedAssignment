@@ -11,14 +11,13 @@ namespace EVotingSystem_SBMM.Controllers;
 [ElectoralAdministratorRestrictPage]
 public class AuditController : Controller
 {
-    private readonly EVotingSystemDB _evotingSystemDB;
     private readonly IEventRepository _eventRepository;
-    
+    private readonly IVoteRepository _voteRepository;
 
-    public AuditController(EVotingSystemDB eVotingSystemDb,IEventRepository eventRepository)
+    public AuditController(IEventRepository eventRepository, IVoteRepository voteRepository)
     {
-        _evotingSystemDB = eVotingSystemDb;
         _eventRepository = eventRepository;
+        _voteRepository = voteRepository;
     }
     public IActionResult Index()
     {
@@ -41,29 +40,37 @@ public class AuditController : Controller
     {
         EventModel eventModel = _eventRepository.GetEventById(id);
     
-        var votes = _evotingSystemDB.Votes
+        var votes = _voteRepository.GetVotesByEventId(eventModel.EventId)
             .Where(e => e.EventId == eventModel.EventId)
             .Select(v => new 
             {
-                Id = v.Id,
-                VotedAtTime = v.VotedAtTime,
-                VoterId = v.VoterId,
-                CandidateId = v.CandidateId,
-                EventId = v.EventId
+                id = v.Id,
+                votedAtTime = v.VotedAtTime,
+                voterId = v.VoterId,
+                candidateId = v.CandidateId,
+                eventId = v.EventId
             })
             .ToList();
 
         return Json(new { data = votes });
     }
-    
     public IActionResult GetPreferencesVoteForAudit(int id)
     {
-        EventModel eventModel = _eventRepository.GetEventById( id);
+        EventModel eventModel = _eventRepository.GetEventById(id);
 
-        var votes = _evotingSystemDB.VotePreferences
+        var votes = _voteRepository.GetPreferenceVotesByEventId(eventModel.EventId)
             .Where(e => e.EventId == eventModel.EventId)
+            .Select(v => new
+            {
+                id = v.Id,
+                voteId = v.VoteId,
+                candidateId = v.CandidateId,
+                rank = v.Rank,
+                eventId = v.EventId,
+                voterId = v.VoterId
+            })
             .ToList();
-            
+        
         return Json(new { data = votes });
         
     }

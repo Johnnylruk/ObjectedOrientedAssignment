@@ -4,6 +4,7 @@ using EVotingSystem_SBMM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EVotingSystem_SBMM.Migrations
 {
     [DbContext(typeof(EVotingSystemDB))]
-    partial class EVotingSystemDBModelSnapshot : ModelSnapshot
+    [Migration("20240303095342_FixingKeys")]
+    partial class FixingKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

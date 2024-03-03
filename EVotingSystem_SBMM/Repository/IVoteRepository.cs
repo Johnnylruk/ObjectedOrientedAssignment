@@ -10,5 +10,7 @@ public interface IVoteRepository
    bool HasVoted(int voterId, int eventId);
    List<VotePreferenceModel> GetSTVVotesByEventId(int eventId);
    List<VotePreferenceModel> GetAllVotesPreferential();
+   public List<VoteModel> GetVotesByEventId(int eventId);
+   public List<VotePreferenceModel> GetPreferenceVotesByEventId(int? eventId);
 
 }
