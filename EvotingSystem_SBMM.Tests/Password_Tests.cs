@@ -27,9 +27,9 @@ public class Password_Tests
         _passwordController = new PasswordController(_userRepository.Object, _userSession.Object, _email.Object);
     }
 
-    private List<UserModel> GetSampleUserList()
+    private ResetPasswordModel GetSampleResetPassword()
     {
-        return Builder<UserModel>.CreateListOfSize(10).Build().ToList();
+        return Builder<ResetPasswordModel>.CreateNew().Build();
     }
 
     private ChangePasswordModel getSampleUserPasswordModel()
@@ -41,6 +41,8 @@ public class Password_Tests
         return Builder<UserModel>.CreateNew().Build();
     }
 
+    #region Change Password
+    
     [Fact]
     public void ChangeUserPassword_Should_Return_RedirectToAction_Create_When_Changed_Successfully()
     {
@@ -68,13 +70,17 @@ public class Password_Tests
     public void ChangeUserPassword_Should_Return_Successfull_WhenModel_Is_Valid()
     {
         // Arrange
+        var httpContext = new DefaultHttpContext();
         var user = getSampleUserPasswordModel();
         var userSession = GetSampleUser();
         _userRepository.Setup(repo => repo.ChangePassword(user)).Verifiable();
         _userSession.Setup(repo => repo.GetUserSession()).Returns(userSession);
         user.Id = userSession.Id;
         _passwordController.ModelState.AddModelError("PropertyName", "Error message");
-
+        _passwordController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "Password has been successful updated."
+        };
         // Act
         var result = _passwordController.ChangeUserPassword(user) as ViewResult;
 
@@ -107,5 +113,69 @@ public class Password_Tests
         _passwordController.TempData["ErrorMessage"].Should().Be("Error trying to update your password.");
 
     }
+    
+    #endregion
+
+    #region SendPasswordLink
+
+    [Fact]
+    public void SendPasswordLink_Should_Return_RedirectToAction_When_Send_Successfully()
+    {
+        //Arrange
+        var httpContext = new DefaultHttpContext();
+        var user = GetSampleUser();
+        var resetPasswordUser = GetSampleResetPassword();
+        
+        string subject = "EVoting System SBMM - New Password";
+        string newPassword = PasswordHandle.GenerateNewPassword();
+        string message = $"Your new password is: {newPassword}";
+        
+        _userRepository.Setup(repo => repo.GetByLoginAndEmail(resetPasswordUser.Login, resetPasswordUser.Email)).Returns(user);
+        _email.Setup(repo => repo.SendEmailLink(user.Email, subject, message)).Returns(true).Verifiable();
+        
+        string hashedPassword = PasswordHandle.HashPassword(newPassword);
+        user.Password = hashedPassword;
+        _userRepository.Setup(repo => repo.UpdateUser(user)).Returns(user);
+       
+        _passwordController.ModelState.Clear(); 
+        _passwordController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "We have sent a new password to your email."
+        };
+        //Act
+        var result = _passwordController.SendResetPasswordLink(resetPasswordUser) as RedirectToActionResult;
+        
+        //Assert
+        result.Should().NotBe(null);
+        result.ActionName.Should().Be("Index");
+        _passwordController.TempData["SuccessMessage"].Should().Be("We have sent a new password to your email.");
+    }
+    [Fact]
+    public void SendPasswordLink_Should_Set_Error_Message_When_Send_Fails()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext();
+        var resetPasswordModel = GetSampleResetPassword();
+        var user = GetSampleUser();
+
+        _userRepository.Setup(repo => repo.GetByLoginAndEmail(resetPasswordModel.Login, resetPasswordModel.Email)).Returns(user);
+        _passwordController.ModelState.AddModelError("PropertyName", "ErrorMessage");
+        _passwordController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["ErrorMessage"] = "We could not reset your password."
+        };
+        // Act
+        var result = _passwordController.SendResetPasswordLink(resetPasswordModel) as ViewResult;
+    
+        // Assert
+        result.Should().NotBeNull();
+        result.ViewName.Should().Be("ChangePassword");
+    
+        // Verify that the TempData contains the expected error message
+        _passwordController.TempData["ErrorMessage"].Should().Be("We could not reset your password.");
+    }
+
+    #endregion
+    
     
 }

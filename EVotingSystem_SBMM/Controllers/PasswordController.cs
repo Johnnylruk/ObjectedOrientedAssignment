@@ -27,8 +27,6 @@ public class PasswordController : Controller
         return View();
     }
     
-    //Colocar isso na controller voterAccess / usersAccess / third-part Access 
-    // 
     [HttpPost]
     public IActionResult ChangeUserPassword(ChangePasswordModel changePasswordModel)
     {
@@ -75,7 +73,7 @@ public class PasswordController : Controller
                         string hashedPassword = PasswordHandle.HashPassword(newPassword);
                         userModel.Password = hashedPassword;
                         _usersRepository.UpdateUser(userModel);
-                        TempData["SuccessMessage"] = "We have sent a new password to your email";
+                        TempData["SuccessMessage"] = "We have sent a new password to your email.";
                     }
                     else
                     {
