@@ -219,6 +219,9 @@ public class AccessVoter_Tests
     }
     #endregion
 
+    #region RequestRegister
+
+    
     [Fact]
     public void RequestRegister_ShouldReturn_BirthDayError_WhenUserCannotVote()
     {
@@ -259,7 +262,158 @@ public class AccessVoter_Tests
         result.ViewName.Should().Be("Register");
         result.ViewData["LoginError"].Should().Be("Login is already registered.");
     }
+    [Fact]
+    public void RequestRegister_Should_Return_Successfull_WhenModel_Is_Valid()
+    {
+        // Arrange
+        var voters = GetSampleVotersList();
+        var newVoter = GetSampleVoter();
+        var httpContext = new DefaultHttpContext();
+        newVoter.BirthDate = DateTime.Now.AddYears(-20);
+        newVoter.Mobile = "123456554";
+        newVoter.Passport = "12345";
+        newVoter.Login = "login.test";
+        newVoter.Email = "Email@email.com";
+        _accessVoterController.ModelState.Clear();
 
+        _votersRepository.Setup(repo => repo.GetAll()).Returns(voters);
+        _votersRepository.Setup(repo => repo.SubmitRequest(newVoter)).Verifiable();
+        _accessVoterController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "You have successful registered. A approval or refusal email will be sent to you once we revise your register. Thank you!"
+        };
+        // Act
+        var result = _accessVoterController.RequestRegister(newVoter) as RedirectToActionResult;
+
+        // Assert
+        result.Should().NotBeNull();
+        result.ActionName.Should().Be("Index");
+        _accessVoterController.TempData["SuccessMessage"].Should().Be("You have successful registered. A approval or refusal email will be sent to you once we revise your register. Thank you!");
+        _votersRepository.Verify(repo => repo.SubmitRequest(newVoter), Times.Once);
+    }
+    
+    [Fact]
+    public void RequestRegister_Should_NotSubmitRequest_WhenModel_Is_Invalid()
+    {
+        // Arrange
+        var voters = GetSampleVotersList();
+        var newVoter = GetSampleVoter();
+        newVoter.BirthDate = DateTime.Now.AddYears(-20);
+        newVoter.Mobile = "123456554";
+        newVoter.Passport = "12345";
+        newVoter.Login = "login.test";
+        newVoter.Email = "Email@email.com";
+
+        _accessVoterController.ModelState.Clear();
+        _accessVoterController.ModelState.AddModelError("PropertyName", "Error message");
+        _votersRepository.Setup(repo => repo.GetAll()).Returns(voters);
+        _votersRepository.Setup(repo => repo.SubmitRequest(newVoter)).Verifiable();
+
+        // Act
+        var result = _accessVoterController.RequestRegister(newVoter) as ViewResult;
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Model.Should().BeOfType<VoterModel>().And.BeEquivalentTo(newVoter);
+        _votersRepository.Verify(repo => repo.SubmitRequest(newVoter), Times.Never);
+    }
+    #endregion
+
+    #region UpdateVoter
+
+     [Fact]
+    public void UpdateVoterInAccessVoter_Should_Return_Voter_By_Id()
+    {
+        //Arrange
+        var voter = GetSampleVoter();
+        _userSession.Setup(repo => repo.GetVoterSession()).Returns(voter);
+        _votersRepository.Setup(repo => repo.GetVoterById(1)).Returns(voter);
+        
+        //Act 
+        var result = _accessVoterController.UpdateVoter(1);
+        
+        //Assert
+        result.Should().NotBe(null);
+        result.Should().BeOfType<ViewResult>();
+        _votersRepository.Verify(x => x.GetVoterById(1), Times.Once);
+    }
+    
+    [Fact]
+    public void UpdateVoter_Should_Return_Successfull_WhenModel_Is_Valid()
+    {
+        //Arrange
+         var voter = GetSampleVoter();
+         _votersRepository.Setup(repo => repo.UpdateVoter(voter)).Verifiable();
+        _accessVoterController.ModelState.AddModelError("PropertyName", "Error message");
+
+        //Act
+        var result = _accessVoterController.UpdateVoter(voter) as ViewResult;
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Model.Should().BeOfType<VoterModel>().And.BeEquivalentTo(voter);
+        _votersRepository.Verify(repo => repo.UpdateVoter(voter), Times.Never);
+    }
+
+     
+     [Fact]
+    public void UpdateVoter_Returns_ViewResult_When_ModelState_Is_Invalid()
+    {
+        // Arrange
+        var voter = GetSampleVoter();
+        _accessVoterController.ModelState.AddModelError("PropertyName", "ErrorMessage");
+
+        // Act
+        var result = _accessVoterController.UpdateVoter(voter) as ViewResult;
+
+        // Assert
+        result.Should().NotBeNull();
+        result.ViewName.Should().BeNull(); 
+    }
+    
+    [Fact]
+    public void UpdateVoter_Returns_RedirectToAction_Index_When_Updated_Successfully()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext();
+        var voter = GetSampleVoter();
+        _votersRepository.Setup(repo => repo.UpdateVoter(voter)).Verifiable();
+        _accessVoterController.ModelState.Clear(); // Ensure ModelState is valid
+        _accessVoterController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["SuccessMessage"] = "Voter has been updated."
+        };
+
+        // Act
+        var result = _accessVoterController.UpdateVoter(voter) as RedirectToActionResult;
+
+        // Assert
+        result.Should().NotBeNull();
+        result.ActionName.Should().Be("Index");
+        _accessVoterController.TempData["SuccessMessage"].Should().Be("Voter has been updated.");
+    }
+    
+    [Fact]
+    public void UpdateVoter_Returns_RedirectToAction_Index_When_Updating_Fails()
+    {
+        //Arrange
+        var httpContext = new DefaultHttpContext();
+        var voter = GetSampleVoter();
+        _votersRepository.Setup(repo => repo.UpdateVoter(voter)).Verifiable();
+        _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Throws(new Exception("Simulated error"));
+        _accessVoterController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["ErrorMessage"] = "Ops, could not update a voter. Please try again. Error details: Simulated error"
+        };
+        //Act
+        var result = _accessVoterController.UpdateVoter(voter) as RedirectToActionResult;
+            
+        //Assert 
+        result.Should().NotBeNull();
+        result.ActionName.Should().Be("Index");
+        _accessVoterController.TempData["ErrorMessage"].Should().Be("Ops, could not update a voter. Please try again. Error details: Simulated error");
+    }
+    #endregion
 
 }
     
