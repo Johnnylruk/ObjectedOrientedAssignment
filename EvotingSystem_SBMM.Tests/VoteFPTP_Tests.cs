@@ -55,7 +55,7 @@ public class VoteFPTP_Tests
         var voter = GetSampleVoter();
         var simpleEvent = GetSampleEvent();
         var candidate = GetSampleCandidate();
-
+        
         _userSession.Setup(repo => repo.GetVoterSession()).Returns(voter);
         _eventRepository.Setup(repo => repo.GetActivityEvent()).Returns(simpleEvent);
         _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Verifiable();
@@ -63,13 +63,14 @@ public class VoteFPTP_Tests
         {
             ["SuccessMessage"] = "Vote submitted successfully!"
         };
+        
         // Act
         var result = _voteController.SubmitVoteFPTP(candidate.Id);
 
         // Assert
         result.Should().BeOfType<RedirectToActionResult>(); 
         _voteController.TempData["SuccessMessage"].Should().Be("Vote submitted successfully!");
-        _voteRepository.Verify(repo => repo.SubmitVote(It.IsAny<VoteModel>()), Times.Once); // Verify SubmitVote is called once
+        _voteRepository.Verify(repo => repo.SubmitVote(It.IsAny<VoteModel>()), Times.Once);
     }
     
     [Fact]

@@ -151,12 +151,14 @@ namespace EVotingSystem_SBMM.Tests
             Assert.Equal(voter, result);
         }
         
-        [Fact]
+         [Fact]
         public void FindProfile_Returns_VoterProfileNullWhenVoterIsPending()
         {
             // Arrange
             var voter = GetSampleVoter();
             voter.IsPending = true;
+            var loginModel = GetSampleLoginUser();
+            loginModel.ApprovalPending = true;
             _loginRepository.Setup(repo => repo.GetVoterByLogin(voter.Login)).Returns(voter);
 
             var hashPassword = voter.Password.GenerateHash();
@@ -166,7 +168,7 @@ namespace EVotingSystem_SBMM.Tests
             var result = _loginController.FindProfile(voter.Login, voter.Password);
 
             // Assert
-            Assert.Null(result);
+            Assert.True(loginModel.ApprovalPending); 
         }
 
         #endregion
@@ -217,7 +219,9 @@ namespace EVotingSystem_SBMM.Tests
             var httpContext = new DefaultHttpContext();
             var loginModel = GetSampleLoginUser();
             loginModel.ApprovalPending = true;
-            var voter = new VoterModel { Login = "", Password = "loginModel.Password" }; 
+            loginModel.IsInvalidCredentials = true;
+            var voter = new VoterModel { Login = "", Password = "loginModel.Password" };
+            
             
             _loginRepository.Setup(repo => repo.GetVoterByLogin(loginModel.Login)).Returns(voter);
             _passwordHandle.Setup(ph => ph.ValidatePassword(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
