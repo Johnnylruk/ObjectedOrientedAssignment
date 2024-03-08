@@ -45,11 +45,6 @@ public class VoteFPTP_Tests
     {
         return Builder<VoterModel>.CreateNew().Build(); 
     }
-    private VoteModel GetSampleVote()
-    {
-        return Builder<VoteModel>.CreateNew().Build(); 
-    }
-
     #region SubmiteVote
 
     [Fact]
@@ -88,6 +83,7 @@ public class VoteFPTP_Tests
 
         _userSession.Setup(repo => repo.GetVoterSession()).Returns(voter);
         _eventRepository.Setup(repo => repo.GetActivityEvent()).Returns(simpleEvent);
+        _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Verifiable();
         _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Throws(new Exception("Simulated error"));
         _voteController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
         {
