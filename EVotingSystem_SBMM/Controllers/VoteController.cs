@@ -86,9 +86,6 @@ public class VoteController : Controller
         }
     }
     
-    
-    
-    
     #endregion
 
     #region Vote Results

@@ -32,6 +32,10 @@ public class VoteFPTP_Tests
     {
         return Builder<CandidateModel>.CreateNew().Build();
     }
+    private List<CandidateModel> GetSampleCandidateList()
+    {
+        return Builder<CandidateModel>.CreateListOfSize(10).Build().ToList();
+    }
     private EventModel GetSampleEvent()
     {
         return Builder<EventModel>.CreateNew().Build();
@@ -45,7 +49,9 @@ public class VoteFPTP_Tests
     {
         return Builder<VoteModel>.CreateNew().Build(); 
     }
-    
+
+    #region SubmiteVote
+
     [Fact]
     public void SubmitVoteFPTP_ShouldReturn_SuccessSubmitVote()
     {
@@ -54,11 +60,10 @@ public class VoteFPTP_Tests
         var voter = GetSampleVoter();
         var simpleEvent = GetSampleEvent();
         var candidate = GetSampleCandidate();
-        var vote = GetSampleVote();
 
         _userSession.Setup(repo => repo.GetVoterSession()).Returns(voter);
         _eventRepository.Setup(repo => repo.GetActivityEvent()).Returns(simpleEvent);
-        _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Verifiable(); // Ensure SubmitVote is called
+        _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Verifiable();
         _voteController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
         {
             ["SuccessMessage"] = "Vote submitted successfully!"
@@ -67,10 +72,83 @@ public class VoteFPTP_Tests
         var result = _voteController.SubmitVoteFPTP(candidate.Id);
 
         // Assert
-        result.Should().BeOfType<RedirectToActionResult>(); // Assuming it should return a redirect
+        result.Should().BeOfType<RedirectToActionResult>(); 
         _voteController.TempData["SuccessMessage"].Should().Be("Vote submitted successfully!");
         _voteRepository.Verify(repo => repo.SubmitVote(It.IsAny<VoteModel>()), Times.Once); // Verify SubmitVote is called once
     }
+    
+    [Fact]
+    public void SubmitVoteFPTP_ShouldHandle_ErrorSubmittingVote()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext();
+        var voter = GetSampleVoter();
+        var simpleEvent = GetSampleEvent();
+        var candidate = GetSampleCandidate();
+
+        _userSession.Setup(repo => repo.GetVoterSession()).Returns(voter);
+        _eventRepository.Setup(repo => repo.GetActivityEvent()).Returns(simpleEvent);
+        _voteRepository.Setup(repo => repo.SubmitVote(It.IsAny<VoteModel>())).Throws(new Exception("Simulated error"));
+        _voteController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
+        {
+            ["ErrorMessage"] = "Failed to submit vote: Simulated error"
+        };
+        // Act
+        var result = _voteController.SubmitVoteFPTP(candidate.Id);
+
+        // Assert
+        result.Should().BeOfType<RedirectToActionResult>(); 
+        _voteRepository.Verify(repo => repo.SubmitVote(It.IsAny<VoteModel>()), Times.Once); 
+        _voteController.TempData["ErrorMessage"].Should().Be("Failed to submit vote: Simulated error"); 
+    }
+    #endregion
+
+    #region Results
+
+    [Fact]
+    public void ResultFPTP_Returns_ErrorMessage_When_NoVotes()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext();
+        var eventModel = GetSampleEvent();
+        var candidates = GetSampleCandidateList;
+        
+        _eventRepository.Setup(repo => repo.GetEventById(eventModel.EventId)).Returns(eventModel);
+        _candidateRepository.Setup(repo => repo.GetAll()).Returns(candidates);
+        _voteRepository.Setup(repo => repo.GetVoteCountForCandidate(It.IsAny<int>(), eventModel.EventId)).Returns(0);
+        _voteController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
+
+        // Act
+        var result = _voteController.VotesResultFPTP(eventModel.EventId);
+
+        // Assert
+        result.Should().BeOfType<RedirectToActionResult>();
+        _voteController.TempData["ErrorMessage"].Should().Be("There are no votes to display results");
+    }
+    [Fact]
+    public void ResultFPTP_Returns_Results_When_VotesExist()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext();
+        var eventModel = GetSampleEvent();
+        var candidates = GetSampleCandidateList;
+        var voteCounts = new Dictionary<int, int> { { 1, 10 }, { 2, 5 }, { 3, 3 } };
+
+        _eventRepository.Setup(repo => repo.GetEventById(eventModel.EventId)).Returns(eventModel);
+        _candidateRepository.Setup(repo => repo.GetAll()).Returns(candidates);
+        _voteRepository.Setup(repo => repo.GetVoteCountForCandidate(It.IsAny<int>(), eventModel.EventId))
+            .Returns((int candidateId, int eventId) => voteCounts.ContainsKey(candidateId) ? voteCounts[candidateId] : 0);
+        _voteController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
+
+        // Act
+        var result = _voteController.VotesResultFPTP(eventModel.EventId) as ViewResult;
+
+        // Assert
+        result.Should().NotBeNull();
+        result.ViewName.Should().Be("IndexResultsFPTP");
+    }
+    #endregion
+    
 
     
 }
