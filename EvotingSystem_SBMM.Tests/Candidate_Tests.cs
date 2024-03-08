@@ -18,7 +18,7 @@ namespace EVotingSystem_SBMM.Tests;
 
 public class Candidate_Tests
 {
-    private Mock<ICandidateRepository> _candidateRepository;
+    private readonly Mock<ICandidateRepository> _candidateRepository;
     private ElectoralAdminCandidateController _candidateController;
 
     public Candidate_Tests()

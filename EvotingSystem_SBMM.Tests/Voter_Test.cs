@@ -14,9 +14,9 @@ namespace EVotingSystem_SBMM.Tests;
 
 public class Voter_Test
 {
-    private Mock<IVotersRepository> _voterRepository;
+    private readonly Mock<IVotersRepository> _voterRepository;
+    private readonly Mock<IEmail> _email;
     private ElectoralAdminVoterController _voterController;
-    private Mock<IEmail> _email;
     private Email email;
 
     public Voter_Test()

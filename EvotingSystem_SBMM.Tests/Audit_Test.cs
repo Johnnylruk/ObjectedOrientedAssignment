@@ -13,8 +13,8 @@ namespace EVotingSystem_SBMM.Tests;
 
 public class Audit_Test
 {
-    private Mock<IEventRepository> _eventRepository;
-    private Mock<IVoteRepository> _voteRepository;
+    private readonly Mock<IEventRepository> _eventRepository;
+    private readonly Mock<IVoteRepository> _voteRepository;
     private AuditController _auditController;
 
     public Audit_Test()

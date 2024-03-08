@@ -104,7 +104,6 @@ public class VoteController : Controller
         EventModel eventModel = _eventRepository.GetEventById(id);
         List<CandidateModel> candidates = _candidateRepository.GetAll();
         candidates = candidates.Where(c => c.City == eventModel.City).ToList();
-
         
         var voteCounts = new Dictionary<int, int>();
         
@@ -114,9 +113,15 @@ public class VoteController : Controller
             int voteCount = _voteRepository.GetVoteCountForCandidate(candidate.Id, id);
             voteCounts[candidate.Id] = voteCount;
         }
-
+        
+        
         int totalVotes = voteCounts.Values.Sum();
-
+        
+        if (totalVotes == null || totalVotes == 0)
+        {
+            TempData["ErrorMessage"] = "There are no votes to display results";
+            return RedirectToAction("Index", "Event");
+        }
         // Find the candidate with the maximum votes
         int maxVoteCount = voteCounts.Values.Max();
         int candidateWithMaxVotesId = voteCounts.FirstOrDefault(x => x.Value == maxVoteCount).Key;
@@ -141,7 +146,12 @@ public IActionResult VotesResultSTV(int id)
         .ToList();
     List<VotePreferenceModel> votePreferences = _voteRepository.GetAllVotesPreferential()
         .Where(c => c.EventId == eventModel.EventId).ToList();    
-    
+   
+    if (votePreferences == null || !votePreferences.Any())
+    {
+        TempData["ErrorMessage"] = "There are no votes to display results";
+        return RedirectToAction("Index", "Event");
+    }
     // Initialize vote counts and elected status for each candidate
     var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
     var electedCandidates = new HashSet<int>();
@@ -183,7 +193,7 @@ public IActionResult VotesResultPV(int id)
 
     if (votePreferences == null || !votePreferences.Any())
     {
-        TempData["ErrorMessage"] = "There are no events to display results";
+        TempData["ErrorMessage"] = "There are no votes to display results";
         return RedirectToAction("Index", "Event");
     }
     

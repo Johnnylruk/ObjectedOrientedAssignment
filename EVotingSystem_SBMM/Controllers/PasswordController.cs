@@ -11,11 +11,14 @@ public class PasswordController : Controller
     private readonly IUsersRepository _usersRepository;
     private readonly IUserSession _userSession;
     private readonly IEmail _email;
-    public PasswordController(IUsersRepository usersRepository, IUserSession userSession, IEmail email)
+    private readonly IPasswordHandle _passwordHandle;
+    public PasswordController(IUsersRepository usersRepository, IUserSession userSession, IEmail email,
+                              IPasswordHandle passwordHandle)
     {
         _usersRepository = usersRepository;
         _userSession = userSession;
         _email = email;
+        _passwordHandle = passwordHandle;
     }
     public IActionResult ChangePassword()
     {
@@ -63,14 +66,14 @@ public class PasswordController : Controller
                 if (userModel != null)
                 {
 
-                    string newPassword = PasswordHandle.GenerateNewPassword();
+                    string newPassword = _passwordHandle.GenerateNewPassword();
                     string message = $"Your new password is: {newPassword}";
                     
                     bool sentEmail = _email.SendEmailLink(userModel.Email,"EVoting System SBMM - New Password", message);
 
                     if (sentEmail)
                     {
-                        string hashedPassword = PasswordHandle.HashPassword(newPassword);
+                        string hashedPassword = _passwordHandle.HashPassword(newPassword);
                         userModel.Password = hashedPassword;
                         _usersRepository.UpdateUser(userModel);
                         TempData["SuccessMessage"] = "We have sent a new password to your email.";

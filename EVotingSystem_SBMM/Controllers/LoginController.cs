@@ -11,14 +11,15 @@ public class LoginController : Controller
     private readonly IUserSession _userSession;
     private readonly ILoginRepository _loginRepository;
     private readonly IHttpContextAccessor _contextAccessor;
-    
+    private readonly IPasswordHandle _passwordHandle;
     public LoginController(IUserSession userSession,
-                           ILoginRepository loginRepository, IHttpContextAccessor contextAccessor
-                           )
+                           ILoginRepository loginRepository, IHttpContextAccessor contextAccessor,
+                           IPasswordHandle passwordHandle)
     {
         _userSession = userSession;
         _loginRepository = loginRepository;
         _contextAccessor = contextAccessor;
+        _passwordHandle = passwordHandle;
     }
     public IActionResult Index()
     {
@@ -30,40 +31,44 @@ public class LoginController : Controller
     public IActionResult LoggedOut()
     {
         _userSession.RemoveLoginSession();
-        _contextAccessor.HttpContext.Response.Cookies.Delete(".AspNet.Consent");
         return RedirectToAction("Index", "Login");
     }
    
     public dynamic FindProfile(string login, string password)
     {
         var user = _loginRepository.GetUserByLogin(login);
+        var result = new LoginModel();
         string hashPassword = password.GenerateHash();
-        
-        if (user != null && PasswordHandle.ValidatePassword(hashPassword, user.Password))
-            {
-                return user;
-            }
 
+        if (user != null && _passwordHandle.ValidatePassword(hashPassword, user.Password))
+        {
+            return user;
+        }
+    
         var voter = _loginRepository.GetVoterByLogin(login);
-        if (voter != null && PasswordHandle.ValidatePassword(hashPassword, voter.Password))
+        if (voter != null && _passwordHandle.ValidatePassword(hashPassword, voter.Password))
         {
             if (voter.IsPending)
             {
-                return null;
+                return result.ApprovalPending;
             }else
             {
                 return voter;
             }
         }
+        else
+        {
+            result.IsInvalidCredentials = true;
+        }
         
-        return null;
+        return result;
     }
     public IActionResult LogIn(LoginModel loginModel)
     {
         try
         {
             var Profile = FindProfile(loginModel.Login, loginModel.Password);
-            if (Profile != null)
+            if (loginModel.IsInvalidCredentials == false)
             {
                 if (Profile is UserModel userModel)
                 {
@@ -76,17 +81,20 @@ public class LoginController : Controller
                     return RedirectToAction("Index", "AccessVoter");
                 }
             }
-            else if (Profile == null)
+            else if (loginModel.ApprovalPending)
             {
                 TempData["ErrorMessage"] = "Approval Pending, you will receive an email once you have been approved.";
                 return View("Index");
             }
-            else
+            if(loginModel.IsInvalidCredentials)
             {
-                TempData["ErrorMessage"] = "Invalid Password";
+                TempData["ErrorMessage"] = "Invalid Password.";
                 
             }
-            TempData["ErrorMessage"] = "Invalid User/Password";
+            else
+            {
+                TempData["ErrorMessage"] = "Invalid User/Password.";
+            }
 
             return View("Index");
         }

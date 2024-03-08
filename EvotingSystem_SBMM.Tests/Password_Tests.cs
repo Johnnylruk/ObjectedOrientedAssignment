@@ -14,9 +14,10 @@ namespace EVotingSystem_SBMM.Tests;
 
 public class Password_Tests
 {
-    private Mock<IUsersRepository> _userRepository;
-    private Mock<IUserSession> _userSession;
-    private Mock<IEmail> _email;
+    private readonly Mock<IUsersRepository> _userRepository;
+    private readonly Mock<IUserSession> _userSession;
+    private readonly Mock<IEmail> _email;
+    private readonly Mock<IPasswordHandle> _passwordHandle;
     private PasswordController _passwordController;
 
     public Password_Tests()
@@ -24,7 +25,8 @@ public class Password_Tests
         _userRepository = new Mock<IUsersRepository>();
         _userSession = new Mock<IUserSession>();
         _email = new Mock<IEmail>();
-        _passwordController = new PasswordController(_userRepository.Object, _userSession.Object, _email.Object);
+        _passwordHandle = new Mock<IPasswordHandle>();
+        _passwordController = new PasswordController(_userRepository.Object, _userSession.Object, _email.Object, _passwordHandle.Object);
     }
 
     private ResetPasswordModel GetSampleResetPassword()
@@ -127,14 +129,12 @@ public class Password_Tests
         var resetPasswordUser = GetSampleResetPassword();
         
         string subject = "EVoting System SBMM - New Password";
-        string newPassword = PasswordHandle.GenerateNewPassword();
-        string message = $"Your new password is: {newPassword}";
+        _passwordHandle.Setup(repo => repo.GenerateNewPassword());
+        string message = $"Your new password is: {user.Password}";
         
         _userRepository.Setup(repo => repo.GetByLoginAndEmail(resetPasswordUser.Login, resetPasswordUser.Email)).Returns(user);
         _email.Setup(repo => repo.SendEmailLink(user.Email, subject, message)).Returns(true).Verifiable();
         
-        string hashedPassword = PasswordHandle.HashPassword(newPassword);
-        user.Password = hashedPassword;
         _userRepository.Setup(repo => repo.UpdateUser(user)).Returns(user);
        
         _passwordController.ModelState.Clear(); 

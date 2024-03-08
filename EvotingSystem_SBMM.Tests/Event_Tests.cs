@@ -12,7 +12,7 @@ namespace EVotingSystem_SBMM.Tests;
 
 public class Event_Tests
 {
-    private Mock<IEventRepository> _eventRepository;
+    private readonly Mock<IEventRepository> _eventRepository;
     private EventController _eventController;
 
     public Event_Tests()

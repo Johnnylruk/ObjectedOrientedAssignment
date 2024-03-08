@@ -7,10 +7,11 @@ namespace EVotingSystem_SBMM.Repository
     public class UsersRepository : IUsersRepository
     {
         private readonly EVotingSystemDB _evotingSystem;
-
-        public UsersRepository(EVotingSystemDB evotingSystemDb)
+        private readonly IPasswordHandle _passwordHandle;
+        public UsersRepository(EVotingSystemDB evotingSystemDb, IPasswordHandle passwordHandle)
         {
             _evotingSystem = evotingSystemDb;
+            _passwordHandle = passwordHandle;
         }
         public List<UserModel> GetAll()
         {
@@ -75,11 +76,11 @@ namespace EVotingSystem_SBMM.Repository
             //Checking user exist
             if (userDB == null) throw new Exception("Error when trying to update password. User not found.");
             // Checking password
-            if (!PasswordHandle.CheckByInput(changePasswordModel.OldPassword.GenerateHash(), userDB.Password)) throw new Exception("Error, you have input wrong password.");
+            if (!_passwordHandle.CheckByInput(changePasswordModel.OldPassword.GenerateHash(), userDB.Password)) throw new Exception("Error, you have input wrong password.");
             //Checking if new password equals with old password
-            if(PasswordHandle.CheckByInput(changePasswordModel.NewPassword, userDB.Password)) throw new Exception("Error, new password cannot be equal to old password.");
+            if(_passwordHandle.CheckByInput(changePasswordModel.NewPassword, userDB.Password)) throw new Exception("Error, new password cannot be equal to old password.");
             
-            userDB.Password = PasswordHandle.HashPassword(changePasswordModel.NewPassword);
+            userDB.Password = _passwordHandle.HashPassword(changePasswordModel.NewPassword);
             userDB.UpdatedDate = DateTime.Now;
 
             _evotingSystem.Users.Update(userDB);

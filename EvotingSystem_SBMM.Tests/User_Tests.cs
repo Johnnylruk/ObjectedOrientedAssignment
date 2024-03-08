@@ -13,7 +13,7 @@ namespace EVotingSystem_SBMM.Tests;
 
 public class User_Tests
 {
-    private  Mock<IUsersRepository> _userRepository;
+    private readonly Mock<IUsersRepository> _userRepository;
     private ElectoralAdminUserController _userController;
 
     public User_Tests()

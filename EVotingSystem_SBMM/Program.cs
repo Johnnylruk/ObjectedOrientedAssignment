@@ -73,6 +73,7 @@ namespace EVotingSystem_SBMM
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
             builder.Services.AddScoped<IVoteRepository, VoteRepository>();
             builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<IPasswordHandle, PasswordHandle>();
 
             //Session Mounting
             builder.Services.AddSession(o =>
