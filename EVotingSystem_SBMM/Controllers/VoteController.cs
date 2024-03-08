@@ -190,14 +190,14 @@ public IActionResult VotesResultPV(int id)
         return RedirectToAction("Index", "Event");
     }
     
-// Initialize vote counts for each candidate
+    // Initialise vote counts for each candidate
     var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
     foreach (var votePreference in votePreferences)
     {
         voteCounts[votePreference.CandidateId] += VoterCalculationHelper.CalculateVotesBasedOnRank(votePreference.Rank, candidates.Count);
     }
 
-    // Initialize elected status for each candidate
+    // Initialise elected status for each candidate
     var electedCandidates = new HashSet<int>();
  
     List<CandidateModel> candidatesCopy = new List<CandidateModel>(candidates);
@@ -217,9 +217,6 @@ public IActionResult VotesResultPV(int id)
     ViewBag.Candidates = candidates;
     ViewBag.Rank = votePreferences.Where(c => c.Rank == voteCounts.Count);
 
-
-    // Logging elected candidates
-    Console.WriteLine("Elected Candidates:");
     foreach (var candidateId in electedCandidates)
     {
         var candidate = candidates.FirstOrDefault(c => c.Id == candidateId);
@@ -228,9 +225,7 @@ public IActionResult VotesResultPV(int id)
     }
 
     return View("IndexResultsPV");
-}
-
-
+    }
     #endregion
 
 }
