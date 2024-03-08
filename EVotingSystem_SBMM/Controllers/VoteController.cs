@@ -9,16 +9,14 @@ public class VoteController : Controller
 {
     private readonly IUserSession _userSession;
     private readonly IVoteRepository _voteRepository;
-    private readonly  ILogger _logger;
     private readonly ICandidateRepository _candidateRepository;
     private readonly IEventRepository _eventRepository;
 
-    public VoteController(IUserSession userSession, IVoteRepository voteRepository, ILogger<VoteController> logger,
+    public VoteController(IUserSession userSession, IVoteRepository voteRepository,
                             ICandidateRepository candidateRepository, IEventRepository eventRepository)
     {
         _userSession = userSession;
         _voteRepository = voteRepository;
-        _logger = logger;
         _candidateRepository = candidateRepository;
         _eventRepository = eventRepository;
     }
@@ -56,7 +54,6 @@ public class VoteController : Controller
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Failed to submit votes: {error.Message}";
-            _logger.LogError($"Error occurred while saving votes: {error}");
             return RedirectToAction("Error", "Home");
         }
     }
@@ -85,7 +82,6 @@ public class VoteController : Controller
         catch (Exception error)
         {
             TempData["ErrorMessage"] = $"Failed to submit vote: {error.Message}";
-            _logger.LogError($"Error occurred while saving vote: {error}");
             return RedirectToAction("Error", "Home");
         }
     }
