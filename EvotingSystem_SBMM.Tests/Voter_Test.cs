@@ -151,7 +151,7 @@ public class Voter_Test
 
     }
  [Fact]
-    public void RefuseVoter_Should_Return_Successfull_When_Request_Approved()
+    public void RefuseVoter_Should_Return_Successfull_When_Request_Refused()
     {
             // Arrange
             var voterId = 1; // Set the voter ID for testing purposes
@@ -159,6 +159,7 @@ public class Voter_Test
             var httpContext = new DefaultHttpContext();
             _voterRepository.Setup(repo => repo.GetVoterById(voterId)).Returns(voter); // Setup the repository mock to return the sample voter when GetVoterById is called
             _voterRepository.Setup(repo => repo.DenyVoterRequest(voter)).Returns(voter);
+            var emailMessage = "Your voter request has been refused";
             _voterController.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>())
             {
                 ["SuccessMessage"] = "Voter has been refused and deleted from database."
@@ -171,6 +172,7 @@ public class Voter_Test
             result.Should().NotBeNull(); // Ensure that the result is not null
             _voterRepository.Verify(repo => repo.DenyVoterRequest(voter), Times.Once);
             _voterController.TempData["SuccessMessage"].Should().Be("Voter has been refused and deleted from database.");
+            _email.Verify(e => e.SendEmailLink(voter.Email, "EVoting System SBMM -", emailMessage), Times.Once);
 
     }
 

@@ -13,11 +13,6 @@ public class CandidateRepository : ICandidateRepository
                _evotingSystem = evotingSystemDb;
            }
    
-           public CandidateModel Details(int id)
-           {
-               return _evotingSystem.Candidates.FirstOrDefault(x => x.Id == id) ;
-           }
-   
            public List<CandidateModel> GetAll()
            {
                

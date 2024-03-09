@@ -8,6 +8,4 @@ public interface ILoginRepository
     
     UserModel GetUserByLoginAndEmail(string login, string password);
     VoterModel GetVoterByLogin(string login);
-    
-    VoterModel GetVoterByLoginAndEmail(string login, string password);
 }

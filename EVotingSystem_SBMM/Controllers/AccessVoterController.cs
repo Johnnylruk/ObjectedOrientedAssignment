@@ -89,7 +89,7 @@ public class AccessVoterController : Controller
         if (eventModel.EventType == EventTypeEnum.PV && hasVoted == false)
         {
             ViewData["HasVoted"] = hasVoted;
-            return View("BalloPV", candidates);
+            return View("BallotPV", candidates);
         }
 
 

@@ -9,6 +9,5 @@ public interface IEventRepository
     public EventModel CreateEvent(EventModel eventModel);
     public EventModel UpdateEvent(EventModel eventModel);
     bool DeleteEvent(int eventModel);
-   // bool DeleteEventForVoter(int eventModel, int voter);
     public EventModel  GetActivityEvent();
 }

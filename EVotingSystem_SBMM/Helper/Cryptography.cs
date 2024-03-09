@@ -32,13 +32,6 @@ public static class Cryptography
             return BitConverter.ToInt32(hashedBytes, 0);
         }
     }
-    public static int DecryptVoterId(byte[] encryptedVoterId)
-    {
-        using (SHA256 sha256 = SHA256.Create())
-        {
-            byte[] hashedBytes = sha256.ComputeHash(encryptedVoterId);
-            return BitConverter.ToInt32(hashedBytes, 0);
-        }
-    }
+  
 
 }

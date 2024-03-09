@@ -104,9 +104,11 @@ namespace EVotingSystem_SBMM.Controllers
             try
             {
                 voter = _votersRepository.GetVoterById(voterId);
+                string message = "Your voter request has been refused";
                 if (voter != null)
                 {
                     _votersRepository.DenyVoterRequest(voter);
+                    _email.SendEmailLink(voter.Email,"EVoting System SBMM -" ,message);
                     TempData["SuccessMessage"] = "Voter has been refused and deleted from database.";
                 }
                 else
