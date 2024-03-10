@@ -149,8 +149,6 @@ public IActionResult VotesResultSTV(int id)
     var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
     var electedCandidates = new HashSet<int>();
  
-    Dictionary<int, int> candidateRanks = new Dictionary<int, int>();
-
         foreach (var votePreference in votePreferences)
         {
             voteCounts[votePreference.CandidateId] += votePreferences.Count - votePreference.Rank + 1;
