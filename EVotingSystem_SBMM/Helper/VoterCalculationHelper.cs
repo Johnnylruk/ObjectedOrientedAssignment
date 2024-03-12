@@ -88,39 +88,33 @@ private static int TieBreaker(List<CandidateModel> candidates, int[] candidatesW
 
 public static void TransferExcessVotesSTV(Dictionary<int, int> voteCounts, List<CandidateModel> candidates, int electedCandidateId)
 {
-    // Calculate surplus votes
     int surplusVotes = voteCounts[electedCandidateId] - voteCounts.Values.Min();
 
-    // Find the elected candidate
     var electedCandidate = candidates.FirstOrDefault(c => c.Id == electedCandidateId);
 
     // Transfer surplus votes proportionally to the next preferences of the voters who voted for the elected candidate
     foreach (var vote in electedCandidate.Votes)
     {
-        // Check if the voter's first preference is the elected candidate
         var firstPreference = vote.Preferences.FirstOrDefault(p => p.CandidateId == electedCandidateId && p.Rank == 1);
         if (firstPreference != null)
         {
-            // Find the total number of votes for this voter's preferences
-            int totalVotesForPreferences = vote.Preferences.Sum(p => voteCounts.GetValueOrDefault(p.CandidateId, 0));
+            int totalSecondPreferenceVotes = vote.Preferences.Where(p => p.Rank == 2).Sum(p => voteCounts.GetValueOrDefault(p.CandidateId, 0));
 
-            // Transfer surplus votes proportionally based on subsequent preferences
             foreach (var nextPreference in vote.Preferences.Where(p => p.Rank > firstPreference.Rank))
             {
-                int candidateVotes = voteCounts.GetValueOrDefault(nextPreference.CandidateId, 0);
-                double transferRatio = (double)candidateVotes / totalVotesForPreferences;
+                int secondPreferenceVotes = voteCounts.GetValueOrDefault(nextPreference.CandidateId, 0);
+                double transferRatio = (double)secondPreferenceVotes / totalSecondPreferenceVotes;
                 int transferredVotes = (int)Math.Floor(surplusVotes * transferRatio);
 
-                // Ensure that transferred votes do not exceed the available votes for the next preference
                 int remainingVotes = Math.Max(0, voteCounts[nextPreference.CandidateId] - voteCounts.Values.Min()); // Can't exceed the minimum vote count among all candidates
                 voteCounts[nextPreference.CandidateId] += Math.Min(transferredVotes, remainingVotes);
             }
         }
     }
 
-    // Reduce votes for the elected candidate to the quota
     voteCounts[electedCandidateId] -= surplusVotes;
 }
+
 
 
 

@@ -60,25 +60,41 @@ public class VoteCalculator_Tests
             voteCounts[3].Should().Be(40); // Votes for candidate 3 should remain the same
         }
 
-        /*[Fact]
+        [Fact]
         public void TransferExcessVotesSTV_ShouldRedistributeSurplusVotesProportionally()
         {
             // Arrange
-            var voteCounts = new Dictionary<int, int> { { 1, 120 }, { 2, 80 },{3, 60} };
+            var originalVoteCounts = new Dictionary<int, int> { { 1, 120 }, { 2, 80 }, { 3, 60 } };
+            var voteCounts = new Dictionary<int, int>(originalVoteCounts); // Create a copy of the original voteCounts
+
+            // Simulate voter preferences
             var candidates = Builder<CandidateModel>.CreateListOfSize(3).Build().ToList();
+            candidates[0].Votes.Add(new VoteModel { Preferences = new List<VotePreferenceModel> { new VotePreferenceModel { CandidateId = 1, Rank = 1 }, new VotePreferenceModel { CandidateId = 2, Rank = 2 } } });
+            candidates[1].Votes.Add(new VoteModel { Preferences = new List<VotePreferenceModel> { new VotePreferenceModel { CandidateId = 2, Rank = 1 }, new VotePreferenceModel { CandidateId = 1, Rank = 2 } } });
+            candidates[2].Votes.Add(new VoteModel { Preferences = new List<VotePreferenceModel> { new VotePreferenceModel { CandidateId = 1, Rank = 1 }, new VotePreferenceModel { CandidateId = 3, Rank = 2 } } });
+
             var electedCandidateId = 1;
 
             // Act
             VoterCalculationHelper.TransferExcessVotesSTV(voteCounts, candidates, electedCandidateId);
 
+            // Logging vote counts for debugging
+            Console.WriteLine("Updated Vote Counts:");
+            foreach (var kvp in voteCounts)
+            {
+                Console.WriteLine($"Candidate {kvp.Key}: {kvp.Value}");
+            }
+
             // Assert
             using (new AssertionScope())
             {
-                voteCounts[2].Should().BeGreaterThan(80); // Votes for candidate 2 should increase
-                voteCounts[1].Should().BeLessThan(120); // Votes for candidate 1 should decrease
+                voteCounts[2].Should().BeGreaterThan(originalVoteCounts[2]); // Votes for candidate 2 should increase
+                voteCounts[1].Should().BeLessThan(originalVoteCounts[1]); // Votes for candidate 1 should decrease
             }
         }
-        
+
+
+        /*
       [Fact]
         public void ElectCandidatesSTV_EliminateCandidateWithFewestVotes()
         {
