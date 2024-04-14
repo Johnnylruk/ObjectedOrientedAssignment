@@ -308,24 +308,6 @@ public class Voter_Test
               result.Should().BeOfType<ViewResult>();
               _voterRepository.Verify(x => x.GetVoterById(1), Times.Once);
           }
-
-            [Fact]
-            public void DeleteVoter_Should_Return_Successfull_WhenModel_Is_Valid()
-            {
-                //Arrange
-                var Voter = CreateSampleModel();
-                _voterRepository.Setup(repo => repo.DeleteVoter(Voter.Id)).Verifiable();
-                _voterController.ModelState.AddModelError("PropertyName", "Error message");
-
-                //Act
-                var result = _voterController.DeleteVoter(Voter) as ViewResult;
-
-                //Assert
-                result.Should().NotBeNull();
-                result.Model.Should().BeOfType<VoterModel>().And.BeEquivalentTo(Voter);
-                _voterRepository.Verify(repo => repo.DeleteVoter(Voter.Id), Times.Never);
-            }
-
         [Fact]
             public void DeleteVoter_Returns_RedirectToAction_Index_When_Deleted_Successfully()
           {
@@ -367,21 +349,5 @@ public class Voter_Test
                     result.ActionName.Should().Be("Index");
                     _voterController.TempData["ErrorMessage"].Should().Be("Voter not found.");
                 }
-
-                      [Fact]
-                      public void DeleteVoter_Returns_ViewResult_When_ModelState_Is_Invalid()
-                      {
-                          // Arrange
-                          var VoterModel = Builder<VoterModel>.CreateNew().Build();
-                          _voterController.ModelState.AddModelError("PropertyName", "ErrorMessage");
-
-                          // Act
-                          var result = _voterController.DeleteVoter(VoterModel) as ViewResult;
-
-                          // Assert
-                          result.Should().NotBeNull();
-                          result.ViewName.Should().BeNull(); // Ensure it returns the default view
-                      }
-                      #endregion
-
+        #endregion
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NXpPz56UMpVIh86C9Q0oEfxuGEzsp4UasppTEgmMdp8=",
+  "Hash": "sr8igfvn26EiSBMvyD1po73oLBrzWgI9YDUl/72EgXA=",
   "Source": "EVotingSystem_SBMM",
   "BasePath": "_content/EVotingSystem_SBMM",
   "Mode": "Default",
@@ -91,25 +91,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\wwwroot\\Images\\Logo.png",
-      "SourceId": "EVotingSystem_SBMM",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\wwwroot\\",
-      "BasePath": "_content/EVotingSystem_SBMM",
-      "RelativePath": "Images/Logo.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\Logo.png"
     },
     {
       "Identity": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\wwwroot\\js\\site.js",

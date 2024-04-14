@@ -33,7 +33,7 @@
                 <th scope="col">@language.Getkey("Name")</th>
                 <th scope="col">@language.Getkey("Party")</th>
                 <th scope="col">@language.Getkey("Description")</th>
-                <th scope="col">@language.Getkey("Profile Picture")</th>
+                <th scope="col">@language.Getkey("City")</th>
                 @*<th scope="col">Register Date</th>*@
                 <th scope="col"></th>
             </tr>
@@ -48,7 +48,7 @@
                         <td>@candidate.Name</td>
                         <td>@candidate.Party</td>
                         <td>@candidate.Description</td>
-                        <td>@Html.DisplayFor(modelItem => candidate.Profile)</td>
+                        <td>@candidate.City</td>
                         @*
                         <td>@user.RegisterDate</td>
                         *@

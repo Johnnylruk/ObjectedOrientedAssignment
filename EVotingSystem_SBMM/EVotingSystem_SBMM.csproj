@@ -49,8 +49,4 @@
     <Folder Include="Pages\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Images\Logo.png" />
-  </ItemGroup>
-
 </Project>

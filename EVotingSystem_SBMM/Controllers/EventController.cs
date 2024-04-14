@@ -63,7 +63,6 @@ public class EventController : Controller
     {
         try
         {
-            //Lembrar de validar se o event ja foi votado, nao pode editar mais.
             if (ModelState.IsValid)
             {
                 _eventRepository.UpdateEvent(eventModel);

@@ -37,8 +37,8 @@ public class CandidateRepository : ICandidateRepository
    
                candidateDb.Name = candidate.Name;
                candidateDb.Party = candidate.Party;
-               candidateDb.ProfileImage = candidate.ProfileImage;
                candidateDb.Description = candidate.Description;
+               candidateDb.City = candidate.City;
         
    
                _evotingSystem.Candidates.Update(candidateDb);

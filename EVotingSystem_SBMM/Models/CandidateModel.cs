@@ -12,7 +12,6 @@ public class CandidateModel : BaseModel
     [Required(ErrorMessage = "Type candidate name.")]
     public string Name { get; set; }
     public string? Party { get; set; }
-    public string? ProfileImage { get; set; }
     [Required(ErrorMessage = "Type candidate city name.")]
     public string City { get; set; }
     [Required(ErrorMessage = "Type Description for candidate.")]

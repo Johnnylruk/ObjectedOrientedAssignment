@@ -51,9 +51,6 @@ namespace EVotingSystem_SBMM.Migrations
                     b.Property<int?>("Profile")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProfileImage")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Candidates");

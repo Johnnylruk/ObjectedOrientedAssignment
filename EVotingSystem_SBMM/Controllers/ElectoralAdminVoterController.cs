@@ -130,8 +130,6 @@ namespace EVotingSystem_SBMM.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
                     bool deleted = _votersRepository.DeleteVoter(voter.Id);
                     if (deleted)
                     {
@@ -142,10 +140,6 @@ namespace EVotingSystem_SBMM.Controllers
                         TempData["ErrorMessage"] = "Voter not found.";
                     }
                     return RedirectToAction("Index");    
-                }
-
-                return View(voter);
-
             }
             catch (Exception error)
             {
@@ -154,7 +148,5 @@ namespace EVotingSystem_SBMM.Controllers
                 return RedirectToAction("Index");
             }
         }
-      
-        
     }
 }

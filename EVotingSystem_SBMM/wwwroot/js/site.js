@@ -19,7 +19,6 @@ $(document).ready(function () {
         $('.btn-approve-save').data('voterId', voterId);
         $('#pendingApprovalModal').modal();
     });
-    
 });
 
     $(document).on('click', '.btn-deny-voter', function (){

@@ -5,10 +5,6 @@
       "PackagePath": "staticwebassets\\EVotingSystem_SBMM.bundle.scp.css"
     },
     {
-      "Id": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\wwwroot\\Images\\Logo.png",
-      "PackagePath": "staticwebassets\\Images\\Logo.png"
-    },
-    {
       "Id": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
