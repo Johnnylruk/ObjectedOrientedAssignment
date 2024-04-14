@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj": {}
+    "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj": {}
   },
   "projects": {
-    "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj": {
+    "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
+        "projectUniqueName": "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
         "projectName": "EvotingSystem_SBMM.Tests",
-        "projectPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
+        "projectPath": "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
         "packagesPath": "C:\\Users\\Johnn\\.nuget\\packages\\",
-        "outputPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\obj\\",
+        "outputPath": "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Johnn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
-                "projectPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj"
+              "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
+                "projectPath": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj"
               }
             }
           }
@@ -47,6 +47,10 @@
             "FluentAssertions": {
               "target": "Package",
               "version": "[7.0.0-alpha.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -97,18 +101,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
+    "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
+        "projectUniqueName": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
         "projectName": "EVotingSystem_SBMM",
-        "projectPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
+        "projectPath": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
         "packagesPath": "C:\\Users\\Johnn\\.nuget\\packages\\",
-        "outputPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\obj\\",
+        "outputPath": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Johnn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -188,19 +192,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             }
           ],
           "frameworkReferences": {
@@ -211,7 +215,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

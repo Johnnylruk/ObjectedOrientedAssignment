@@ -184,6 +184,22 @@
           "lib/netstandard2.0/_._": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.InMemory/6.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -3331,6 +3347,20 @@
         "lib/netstandard2.0/_._",
         "microsoft.entityframeworkcore.analyzers.6.0.0.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/6.0.0": {
+      "sha512": "WJmphvCn0wue9AX+Wvqj3XZ3ehNi9oyYBFNLtHVNvKqZrcimXBOqLo5RNf1fJWYSLWhOia/vzG4JtkAeZxZ8FQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.inmemory/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.xml",
+        "microsoft.entityframeworkcore.inmemory.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/6.0.0": {
@@ -8288,6 +8318,7 @@
     "net8.0": [
       "EVotingSystem_SBMM >= 1.0.0",
       "FluentAssertions >= 7.0.0-alpha.3",
+      "Microsoft.EntityFrameworkCore.InMemory >= 6.0.0",
       "Microsoft.NET.Test.Sdk >= 17.6.0",
       "Moq >= 4.20.70",
       "NBuilder >= 6.1.0",
@@ -8303,11 +8334,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
+      "projectUniqueName": "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
       "projectName": "EvotingSystem_SBMM.Tests",
-      "projectPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
+      "projectPath": "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\EvotingSystem_SBMM.Tests.csproj",
       "packagesPath": "C:\\Users\\Johnn\\.nuget\\packages\\",
-      "outputPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EvotingSystem_SBMM.Tests\\obj\\",
+      "outputPath": "D:\\ObjectedOrientedAssignment\\EvotingSystem_SBMM.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Johnn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8324,8 +8355,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
-              "projectPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj"
+            "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
+              "projectPath": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj"
             }
           }
         }
@@ -8343,6 +8374,10 @@
           "FluentAssertions": {
             "target": "Package",
             "version": "[7.0.0-alpha.3, )"
+          },
+          "Microsoft.EntityFrameworkCore.InMemory": {
+            "target": "Package",
+            "version": "[6.0.0, )"
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -8393,7 +8428,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {}
+    "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {}
   },
   "projects": {
-    "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
+    "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
+        "projectUniqueName": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
         "projectName": "EVotingSystem_SBMM",
-        "projectPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
+        "projectPath": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\EVotingSystem_SBMM.csproj",
         "packagesPath": "C:\\Users\\Johnn\\.nuget\\packages\\",
-        "outputPath": "F:\\E-Voting Assigment\\EVotingSystem_SBMM\\EVotingSystem_SBMM\\obj\\",
+        "outputPath": "D:\\ObjectedOrientedAssignment\\EVotingSystem_SBMM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Johnn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -91,19 +91,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
+              "version": "[6.0.29, 6.0.29]"
             }
           ],
           "frameworkReferences": {

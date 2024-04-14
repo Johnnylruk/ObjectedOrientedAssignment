@@ -9,191 +9,191 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EVotingSystem_SBMM
 build_property.RootNamespace = EVotingSystem_SBMM
-build_property.ProjectDir = F:\E-Voting Assigment\EVotingSystem_SBMM\EVotingSystem_SBMM\
+build_property.ProjectDir = D:\ObjectedOrientedAssignment\EVotingSystem_SBMM\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = F:\E-Voting Assigment\EVotingSystem_SBMM\EVotingSystem_SBMM
+build_property.MSBuildProjectDirectory = D:\ObjectedOrientedAssignment\EVotingSystem_SBMM
 build_property._RazorSourceGeneratorDebug = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/AccessBallot.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/AccessBallot.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcQWNjZXNzQmFsbG90LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/BalloPV.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcQmFsbG9QVi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/BallotFPTP.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/BallotFPTP.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcQmFsbG90RlBUUC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/BallotSTV.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/BallotPV.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcQmFsbG90UFYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/BallotSTV.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcQmFsbG90U1RWLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/Register.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/UpdateVoter.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/UpdateVoter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcVXBkYXRlVm90ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/AccessVoter/VoteStatus.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/AccessVoter/VoteStatus.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzVm90ZXJcVm90ZVN0YXR1cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Audit/AuditPreferenceVotesPage.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Audit/AuditPreferenceVotesPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcQXVkaXRQcmVmZXJlbmNlVm90ZXNQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Audit/AuditVotesPage.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Audit/AuditVotesPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcQXVkaXRWb3Rlc1BhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Audit/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Audit/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/CreateCandidate.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/CreateCandidate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5DYW5kaWRhdGVcQ3JlYXRlQ2FuZGlkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/DeleteCandidate.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/DeleteCandidate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5DYW5kaWRhdGVcRGVsZXRlQ2FuZGlkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/EditCandidate.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/EditCandidate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5DYW5kaWRhdGVcRWRpdENhbmRpZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminCandidate/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5DYW5kaWRhdGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminUser/CreateUser.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminUser/CreateUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Vc2VyXENyZWF0ZVVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminUser/DeleteUser.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminUser/DeleteUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Vc2VyXERlbGV0ZVVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminUser/EditUser.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminUser/EditUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Vc2VyXEVkaXRVc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminUser/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminUser/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Vc2VyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminVoter/CreateVoter.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Wb3RlclxDcmVhdGVWb3Rlci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminVoter/DeleteVoter.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminVoter/DeleteVoter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Wb3RlclxEZWxldGVWb3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminVoter/Details.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminVoter/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Wb3RlclxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminVoter/EditVoter.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminVoter/EditVoter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Wb3RlclxFZGl0Vm90ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/ElectoralAdminVoter/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminVoter/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Wb3RlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Event/CreateEvent.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/ElectoralAdminVoter/PendingVoters.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlY3RvcmFsQWRtaW5Wb3RlclxQZW5kaW5nVm90ZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Event/CreateEvent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcQ3JlYXRlRXZlbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Event/DeleteEvent.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Event/DeleteEvent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcRGVsZXRlRXZlbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Event/EditEvent.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Event/EditEvent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcRWRpdEV2ZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Event/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Event/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Home/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Home/Privacy.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Login/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Password/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRcSW5kZXguY3NodG1s
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Password/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Password/ResetPassword.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Password/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRcUmVzZXRQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Restrict/Index.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Restrict/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdHJpY3RcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Shared/Components/Menu/Default.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Shared/Components/Menu/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudVxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Shared/Components/Privacy/_CookieConsentPartial.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Shared/Components/Privacy/_CookieConsentPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUHJpdmFjeVxfQ29va2llQ29uc2VudFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Shared/Error.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Vote/IndexResultsFPTP.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Vote/IndexResultsFPTP.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZVxJbmRleFJlc3VsdHNGUFRQLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Vote/IndexResultsPV.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Vote/IndexResultsPV.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZVxJbmRleFJlc3VsdHNQVi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Vote/IndexResultsSTV.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Vote/IndexResultsSTV.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZVxJbmRleFJlc3VsdHNTVFYuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/_ViewImports.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/_ViewStart.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Shared/_Layout.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-wok0uw2i7b
 
-[F:/E-Voting Assigment/EVotingSystem_SBMM/EVotingSystem_SBMM/Views/Shared/_LayoutLoggedOut.cshtml]
+[D:/ObjectedOrientedAssignment/EVotingSystem_SBMM/Views/Shared/_LayoutLoggedOut.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dnZWRPdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-cohjxyxr7e
