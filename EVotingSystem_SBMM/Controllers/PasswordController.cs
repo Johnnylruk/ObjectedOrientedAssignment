@@ -53,22 +53,20 @@ public class PasswordController : Controller
             return View("ChangePassword", changePasswordModel);
         }
     }
+    
     [HttpPost]
     public IActionResult SendResetPasswordLink(ResetPasswordModel resetPasswordModel)
     {
         try
         {
-
             if (ModelState.IsValid)
             {
                 UserModel userModel = _usersRepository.GetByLoginAndEmail(resetPasswordModel.Login, resetPasswordModel.Email);
 
                 if (userModel != null)
                 {
-
                     string newPassword = _passwordHandle.GenerateNewPassword();
                     string message = $"Your new password is: {newPassword}";
-                    
                     bool sentEmail = _email.SendEmailLink(userModel.Email,"EVoting System SBMM - New Password", message);
 
                     if (sentEmail)

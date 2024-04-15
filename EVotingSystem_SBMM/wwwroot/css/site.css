@@ -28,16 +28,9 @@ header {
 .top-left-header h3 {
     font-size: 80px; 
 }
-
-/*body {
-  margin-bottom: 60px;
-  background-color: #EBEEF2; 
-
-}*/
 body {
     margin-bottom: 0;
     font-family: Arial, sans-serif;
-    background-image: url('Images/Logo.png'); /* Set background image */
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat; /* Ensure background doesn't repeat */
@@ -77,27 +70,16 @@ body {
     text-align: center;
     z-index: 100; /* Ensure footer is above other content */
 }
-
 .row {
     margin-right: 0px;
     margin-left: 0px;
 }
-
-
-
-
 
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
 }
-
-
-
-
-
-
 
 .e-btn-group.custom-rbt-group{
     width: 100%;
@@ -145,8 +127,6 @@ body {
     background-color: antiquewhite;
 }
 
-
-
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -183,9 +163,6 @@ body {
     --normal-font-size: 1rem;
     --z-fixed: 100
 }
-
-
-
 
 a {
     text-decoration: none
@@ -296,19 +273,14 @@ a {
 
 body-pd {
     padding-left: calc(var(--nav-width) + 1rem);
-
-
 }
 
 .active {
     color: var(--white-color)
 }
-
-
 .height-100 {
     height: 100vh
 }
-
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -342,7 +314,6 @@ body-pd {
         padding-left: calc(var(--nav-width) + 188px)
     }
 }
-
 .fa.fa-globe{
     color: white;
 }
@@ -371,7 +342,6 @@ body-pd {
     align-items: center;
     height: 100%; /* Ensure the content fills the entire height of the box */
 }
-
 /*LoginBG*/
 .custom-bg-color {
     background-color: #395c83;
@@ -384,8 +354,6 @@ body-pd {
     margin-bottom: 0;
     margin-top: -100px;
 }
-
-
 .custom-text-color {
     color: white;
 }

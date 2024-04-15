@@ -1,10 +1,8 @@
 using EVotingSystem_SBMM.Enums;
-using EVotingSystem_SBMM.Filters;
 using EVotingSystem_SBMM.Helper;
 using EVotingSystem_SBMM.Models;
 using EVotingSystem_SBMM.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace EVotingSystem_SBMM.Controllers;
 
@@ -42,7 +40,6 @@ public class AccessVoterController : Controller
         {
             ViewData["EventId"] = activeEvents.First().EventId;
         }
-
         return View(activeEvents);
     }
 
@@ -91,8 +88,6 @@ public class AccessVoterController : Controller
             ViewData["HasVoted"] = hasVoted;
             return View("BallotPV", candidates);
         }
-
-
         TempData["ErrorMessage"] = "There is no available event for you or you have voted in this event before.";
         return View("Index", candidates);
     }
@@ -101,7 +96,7 @@ public class AccessVoterController : Controller
     {
         return View();
     }
-
+    
     public IActionResult UpdateVoter(int id)
     {
         var voterId = _userSession.GetVoterSession();
@@ -181,7 +176,6 @@ public class AccessVoterController : Controller
                     "You have successful registered. A approval or refusal email will be sent to you once we revise your register. Thank you!";
                 return RedirectToAction("Index", "Login");
             }
-
             return View("Index", voter);
         }
         catch (Exception error)
@@ -204,7 +198,6 @@ public class AccessVoterController : Controller
                 TempData["SuccessMessage"] = "Voter has been updated.";
                 return RedirectToAction("Index");
             }
-
             return View(voter);
         }
         catch (Exception error)

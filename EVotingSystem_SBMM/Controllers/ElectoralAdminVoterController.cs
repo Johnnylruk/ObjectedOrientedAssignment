@@ -23,9 +23,7 @@ namespace EVotingSystem_SBMM.Controllers
             List<VoterModel> voters =_votersRepository.GetAll();
             var displayVoters = voters.Where(v => v.IsPending == false).ToList();
             int pendingVotersCount = voters.Count(v => v.IsPending);
-         
             ViewBag.PendingVotersCount = pendingVotersCount;
-
             return View(displayVoters);
         }
 
@@ -88,7 +86,6 @@ namespace EVotingSystem_SBMM.Controllers
                     _votersRepository.UpdateVoter(voter);
                     TempData["SuccessMessage"] = "Voter has been updated.";
                     return RedirectToAction("Index");
-
                 }
                 return View(voter);
             }
@@ -116,7 +113,6 @@ namespace EVotingSystem_SBMM.Controllers
                     TempData["ErrorMessage"] = "Ops, could not find a voter.";
                 }
                 return RedirectToAction("Index");
-
             }
             catch (Exception error)
             {
@@ -143,7 +139,6 @@ namespace EVotingSystem_SBMM.Controllers
             }
             catch (Exception error)
             {
-
                 TempData["ErrorMessage"] = $"Ops, could not delete a voter. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }

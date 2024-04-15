@@ -19,9 +19,7 @@ namespace EVotingSystem_SBMM.Models
         [Required(ErrorMessage = "Select user profile")]
         [Display(Name = "Profile")]
         public ProfileEnum? Profile { get; set; }
-        
         public DateTime RegisterDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        
     }
 }

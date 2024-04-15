@@ -26,7 +26,6 @@ public class ElectoralAdministratorRestrictPage : ActionFilterAttribute
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary{ { "controller" , "login"} , {"action" , "Index"} });
             }
-
             if (context.RouteData.Values["controller"].ToString().ToLower() == "audit")
             {
                 // Allow access for both Electoral Administrators and Third-Party Auditors
@@ -36,14 +35,12 @@ public class ElectoralAdministratorRestrictPage : ActionFilterAttribute
                     return;
                 }
             }
-
             // For other controllers, restrict access to Electoral Administrators only
             if (userModel.Profile != ProfileEnum.ElectoralAdministrator)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Restrict" }, { "action", "Index" } });
                 return;
             }
-            
         }
         base.OnActionExecuting(context);
     }

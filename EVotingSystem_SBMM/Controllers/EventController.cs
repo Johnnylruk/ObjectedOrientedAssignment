@@ -49,7 +49,6 @@ public class EventController : Controller
                 _eventRepository.CreateEvent(eventModel);
                 return RedirectToAction("Index");
             }
-
             return View(eventModel);
         }
         catch (Exception error)
@@ -58,6 +57,7 @@ public class EventController : Controller
             return RedirectToAction("Index");
         }
     }
+    
     [HttpPost]
     public IActionResult EditEvent(EventModel eventModel)
     {
@@ -70,7 +70,6 @@ public class EventController : Controller
                 return RedirectToAction("Index");
             }
             return View (eventModel);
-
         }
         catch (Exception error)
         {
@@ -95,16 +94,12 @@ public class EventController : Controller
                 {
                     TempData["ErrorMessage"] = "Event not found.";
                 }
-
                 return RedirectToAction("Index");    
             }
-
             return View(eventModel);
-
         }
         catch (Exception error)
         {
-
             TempData["ErrorMessage"] = $"Ops, could not delete an event. Please try again. Error details: {error.Message}";
             return RedirectToAction("Index");
         }

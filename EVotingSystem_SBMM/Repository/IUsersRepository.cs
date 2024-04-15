@@ -8,9 +8,7 @@ namespace EVotingSystem_SBMM.Repository
         UserModel Register(UserModel user);
         UserModel GetUserById(int id);
         UserModel UpdateUser(UserModel user);
-
         bool DeleteUser(int userId);
-        
         UserModel GetByLoginAndEmail(string login, string password);
         UserModel ChangePassword (ChangePasswordModel changePasswordModel);
     }

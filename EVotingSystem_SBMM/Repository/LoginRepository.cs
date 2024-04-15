@@ -11,6 +11,7 @@ public class LoginRepository : ILoginRepository
     {
         _evotingSystem = evotingSystem;
     }
+    
     public UserModel GetUserByLogin(string login)
     {
         return _evotingSystem.Users.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
@@ -20,6 +21,7 @@ public class LoginRepository : ILoginRepository
     {
         return _evotingSystem.Users.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
     }
+    
     public VoterModel GetVoterByLogin(string login)
     {
         return _evotingSystem.Voters.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());

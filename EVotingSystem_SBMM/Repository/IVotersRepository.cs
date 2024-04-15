@@ -8,17 +8,11 @@ namespace EVotingSystem_SBMM.Repository
         VoterModel Details(int voterId);
         VoterModel Register(VoterModel voter);
         VoterModel SubmitRequest(VoterModel voter);
-
         VoterModel GetVoterById(int id);
         VoterModel UpdateVoter(VoterModel voter);
         public VoterModel ApproveVoterRequest(VoterModel voter);
         public VoterModel DenyVoterRequest(VoterModel voter);
-
-        
         bool DeleteVoter(int voterId);
-        
         string  GetVoterCity();
-
-
     }
 }

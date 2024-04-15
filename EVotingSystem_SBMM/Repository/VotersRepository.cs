@@ -10,7 +10,7 @@ namespace EVotingSystem_SBMM.Repository
 
         public VotersRepository(EVotingSystemDB evotingSystemDb)
         {
-            this._evotingSystem = evotingSystemDb;
+            _evotingSystem = evotingSystemDb;
         }
 
         public VoterModel Details(int id)
@@ -19,10 +19,12 @@ namespace EVotingSystem_SBMM.Repository
                 x => x.Id == id
                 ) ;
         }
+        
         public  List<VoterModel> GetAll()
         {
             return _evotingSystem.Voters.ToList();
         }
+        
         public VoterModel Register(VoterModel voter)
         {
             voter.IsPending = false;
@@ -30,16 +32,17 @@ namespace EVotingSystem_SBMM.Repository
             _evotingSystem.SaveChanges();
             return voter;
         }
+        
         public VoterModel GetVoterById(int id)
         {   
             return _evotingSystem.Voters.FirstOrDefault(
                 x => x.Id == id );
         }
+        
         public VoterModel UpdateVoter(VoterModel voter)
         {
             VoterModel voterDb = GetVoterById(voter.Id);
             if (voterDb == null) throw new Exception("Error when trying to update voter");
-
             voterDb.Name = voter.Name;
             voterDb.Email = voter.Email;
             voterDb.Mobile = voter.Mobile;
@@ -47,18 +50,15 @@ namespace EVotingSystem_SBMM.Repository
             voterDb.City = voter.City;
             voterDb.Address = voter.Address;
             voterDb.BirthDate = voter.BirthDate;
-
             _evotingSystem.Voters.Update(voterDb);
             _evotingSystem.SaveChanges();
             return voterDb;
-            
         }
 
         public bool DeleteVoter(int voter)
         {
             VoterModel voterDb = GetVoterById(voter);
             if (voterDb == null) throw new Exception("Error when trying to update voter");
-
             _evotingSystem.Remove(voterDb);
             _evotingSystem.SaveChanges();
             return true;
@@ -66,7 +66,6 @@ namespace EVotingSystem_SBMM.Repository
 
         public string GetVoterCity()
         {
-            
             var voter = _evotingSystem.Voters.FirstOrDefault();
             if (voter != null)
             {

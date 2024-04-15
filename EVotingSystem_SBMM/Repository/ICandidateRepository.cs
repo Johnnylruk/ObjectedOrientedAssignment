@@ -8,6 +8,5 @@ public interface ICandidateRepository
     CandidateModel Register(CandidateModel candidate);
     CandidateModel GetCandidateById(int id);
     CandidateModel UpdateCandidate(CandidateModel candidate);
-
     bool DeleteCandidate(int candidateId);
 }

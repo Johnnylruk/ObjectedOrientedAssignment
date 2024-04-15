@@ -41,13 +41,11 @@ public class EventRepository : IEventRepository
         _evotingSystem.Events.Update(events);
         _evotingSystem.SaveChanges();
         return events;
-
     }
 
     public bool DeleteEvent(int eventModel)
     {
         EventModel events = GetEventById(eventModel);
-        
         if (events == null) throw new Exception("Event does not exist");
         _evotingSystem.Events.Remove(events);
         _evotingSystem.SaveChanges();

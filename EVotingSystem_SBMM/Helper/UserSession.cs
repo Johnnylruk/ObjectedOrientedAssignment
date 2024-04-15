@@ -10,8 +10,9 @@ public class UserSession : IUserSession
 
     public UserSession(IHttpContextAccessor httpContextAccessor)
     {
-        this._httpContextAccessor = httpContextAccessor;
+        _httpContextAccessor = httpContextAccessor;
     }
+    
     public void CreateSession(UserModel? userModel, VoterModel? voterModel)
     {
         if (userModel != null)
@@ -35,14 +36,13 @@ public class UserSession : IUserSession
     {
         string userSession = _httpContextAccessor.HttpContext.Session.GetString("userLoggedSession");
         if (string.IsNullOrEmpty(userSession)) return null;
-            
         return JsonConvert.DeserializeObject<UserModel>(userSession);
     }
+    
     public VoterModel GetVoterSession()
     {
         string voterSession = _httpContextAccessor.HttpContext.Session.GetString("userLoggedSession");
         if (string.IsNullOrEmpty(voterSession)) return null;
-            
         return JsonConvert.DeserializeObject<VoterModel>(voterSession);
     }
 }

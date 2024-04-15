@@ -24,10 +24,8 @@ public static class VoterCalculationHelper
             // Declare the candidate with excess votes as a winner
             electedCandidates.Add(candidateId);
             candidates.First(c => c.Id == candidateId).IsElected = true;
-
             // Recalculate vote counts after transferring excess votes
             TransferExcessVotesSTV(voteCounts, candidates, candidateId);
-
             // Remove the elected candidate from the list
             candidates.RemoveAll(c => c.Id == candidateId);
         }
@@ -55,13 +53,11 @@ public static class VoterCalculationHelper
                     {
                         // Transfer the vote to the candidate with the highest rank
                         voteCounts[preference.CandidateId]++;
-
                         // Deduct the vote from the eliminated candidate
                         voteCounts[candidateWithMinVotesId]--;
                         break; // Stop after transferring one vote from this voter
                     }
                 }
-
                 // Remove the eliminated candidate from the list of candidates
                 candidates.RemoveAll(c => c.Id == candidateWithMinVotesId);
             }
@@ -89,7 +85,6 @@ private static int TieBreaker(List<CandidateModel> candidates, int[] candidatesW
 public static void TransferExcessVotesSTV(Dictionary<int, int> voteCounts, List<CandidateModel> candidates, int electedCandidateId)
 {
     int surplusVotes = voteCounts[electedCandidateId] - voteCounts.Values.Min();
-
     var electedCandidate = candidates.FirstOrDefault(c => c.Id == electedCandidateId);
 
     // Transfer surplus votes proportionally to the next preferences of the voters who voted for the elected candidate
@@ -130,13 +125,11 @@ public static void TransferExcessVotesSTV(Dictionary<int, int> voteCounts, List<
         while (true)
         {
             int totalVotes = voteCounts.Values.Sum();
-
             // Check if voteCounts is empty
             if (!voteCounts.Any())
             {
                 break;
             }
-
             // If there is only one candidate left, declare them as the winner
             if (candidates.Count == 1)
             {
@@ -145,7 +138,6 @@ public static void TransferExcessVotesSTV(Dictionary<int, int> voteCounts, List<
                 candidates[0].IsElected = true;
                 break;
             }
-
             // Find the candidate(s) with the most votes
             var maxVoteCount = voteCounts.Values.Max();
             var candidatesWithMaxVotes = voteCounts.Where(kv => kv.Value == maxVoteCount).Select(kv => kv.Key).ToList();
@@ -160,7 +152,6 @@ public static void TransferExcessVotesSTV(Dictionary<int, int> voteCounts, List<
                 }
                 break;
             }
-
             // Find the candidate with the fewest votes
             var minVoteCount = voteCounts.Values.Min();
             var candidateWithMinVotes = voteCounts.Where(kv => kv.Value == minVoteCount).Select(kv => kv.Key).First();
@@ -170,10 +161,4 @@ public static void TransferExcessVotesSTV(Dictionary<int, int> voteCounts, List<
             voteCounts.Remove(candidateWithMinVotes);
         }
     }
-
-
-
-
-
-
 }

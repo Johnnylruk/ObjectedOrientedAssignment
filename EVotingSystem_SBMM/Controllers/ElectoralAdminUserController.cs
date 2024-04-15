@@ -73,7 +73,6 @@ public class ElectoralAdminUserController : Controller
                         Email = userWithOutPwdModel.Email,
                         Profile = userWithOutPwdModel.Profile
                     };
-                    
                     _usersRepository.UpdateUser(userModel);
                     TempData["SuccessMessage"] = "User has been updated.";
                     return RedirectToAction("Index");
@@ -86,6 +85,7 @@ public class ElectoralAdminUserController : Controller
                 return RedirectToAction("Index");
             }
         }
+        
         [HttpPost]
         public IActionResult DeleteUser(UserModel userModel)
         {
@@ -104,18 +104,12 @@ public class ElectoralAdminUserController : Controller
                     }
                     return RedirectToAction("Index");    
                 }
-
                 return View(userModel);
-
             }
             catch (Exception error)
             {
-
                 TempData["ErrorMessage"] = $"Ops, could not delete a user. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }
-
         }
-        
-      
 }

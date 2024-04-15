@@ -8,16 +8,18 @@ namespace EVotingSystem_SBMM.Repository
     {
         private readonly EVotingSystemDB _evotingSystem;
         private readonly IPasswordHandle _passwordHandle;
+        
         public UsersRepository(EVotingSystemDB evotingSystemDb, IPasswordHandle passwordHandle)
         {
             _evotingSystem = evotingSystemDb;
             _passwordHandle = passwordHandle;
         }
+        
         public List<UserModel> GetAll()
         {
-            
             return _evotingSystem.Users.ToList();
         }
+        
         public UserModel Register(UserModel user)
         {
             user.RegisterDate = DateTime.Now;
@@ -42,22 +44,18 @@ namespace EVotingSystem_SBMM.Repository
             userDb.Login = user.Login;
             userDb.Profile = user.Profile;
             userDb.UpdatedDate = DateTime.Now;
-
             _evotingSystem.Users.Update(userDb);
             _evotingSystem.SaveChanges();
             return userDb;
-            
         }
 
         public bool DeleteUser(int user)
         {
             UserModel userDb = GetUserById(user);
             if (userDb == null) throw new Exception("Error when trying to delete user");
-
             _evotingSystem.Remove(userDb);
             _evotingSystem.SaveChanges();
             return true;
-
         }
 
         public UserModel GetByLogin(string login)
@@ -79,13 +77,10 @@ namespace EVotingSystem_SBMM.Repository
             if (!_passwordHandle.CheckByInput(changePasswordModel.OldPassword.GenerateHash(), userDB.Password)) throw new Exception("Error, you have input wrong password.");
             //Checking if new password equals with old password
             if(_passwordHandle.CheckByInput(changePasswordModel.NewPassword, userDB.Password)) throw new Exception("Error, new password cannot be equal to old password.");
-            
             userDB.Password = _passwordHandle.HashPassword(changePasswordModel.NewPassword);
             userDB.UpdatedDate = DateTime.Now;
-
             _evotingSystem.Users.Update(userDB);
             _evotingSystem.SaveChanges();
-
             return userDB;
         }
     }

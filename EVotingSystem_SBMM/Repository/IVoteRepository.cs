@@ -12,5 +12,4 @@ public interface IVoteRepository
    List<VotePreferenceModel> GetAllVotesPreferential();
    public List<VoteModel> GetVotesByEventId(int eventId);
    public List<VotePreferenceModel> GetPreferenceVotesByEventId(int? eventId);
-
 }

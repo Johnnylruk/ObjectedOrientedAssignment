@@ -10,15 +10,11 @@ public class LoginController : Controller
 {
     private readonly IUserSession _userSession;
     private readonly ILoginRepository _loginRepository;
-    private readonly IHttpContextAccessor _contextAccessor;
     private readonly IPasswordHandle _passwordHandle;
-    public LoginController(IUserSession userSession,
-                           ILoginRepository loginRepository, IHttpContextAccessor contextAccessor,
-                           IPasswordHandle passwordHandle)
+    public LoginController(IUserSession userSession, ILoginRepository loginRepository, IPasswordHandle passwordHandle)
     {
         _userSession = userSession;
         _loginRepository = loginRepository;
-        _contextAccessor = contextAccessor;
         _passwordHandle = passwordHandle;
     }
     public IActionResult Index()
@@ -60,9 +56,9 @@ public class LoginController : Controller
         {
             result.IsInvalidCredentials = true;
         }
-        
         return result;
     }
+    
     public IActionResult LogIn(LoginModel loginModel)
     {
         try
@@ -89,13 +85,11 @@ public class LoginController : Controller
             if(loginModel.IsInvalidCredentials)
             {
                 TempData["ErrorMessage"] = "Invalid Password.";
-                
             }
             else
             {
                 TempData["ErrorMessage"] = "Invalid User/Password.";
             }
-
             return View("Index");
         }
         catch (Exception error)
@@ -104,7 +98,4 @@ public class LoginController : Controller
             return RedirectToAction("Index");
         }
     }
-
-    
-  
 }

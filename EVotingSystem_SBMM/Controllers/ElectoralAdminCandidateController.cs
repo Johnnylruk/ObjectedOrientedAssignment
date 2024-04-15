@@ -46,14 +46,12 @@ public class ElectoralAdminCandidateController : Controller
                     return RedirectToAction("Index");
                 }
                 return View(candidateModel);
-
             }
             catch (Exception error)
             {
                 TempData["ErrorMessage"] = $"Ops, could not create a candidate. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }
-
         }
         
         [HttpPost]
@@ -68,7 +66,6 @@ public class ElectoralAdminCandidateController : Controller
                     return RedirectToAction("Index");
                 }
                 return View (candidateModel);
-
             }
             catch (Exception error)
             {
@@ -97,7 +94,6 @@ public class ElectoralAdminCandidateController : Controller
                 }
 
                 return View(candidateModel);
-
             }
             catch (Exception error)
             {
@@ -105,6 +101,5 @@ public class ElectoralAdminCandidateController : Controller
                 TempData["ErrorMessage"] = $"Ops, could not delete a candidate. Please try again. Error details: {error.Message}";
                 return RedirectToAction("Index");
             }
-
         }
 }

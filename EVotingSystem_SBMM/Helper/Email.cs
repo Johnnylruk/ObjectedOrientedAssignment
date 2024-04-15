@@ -24,7 +24,6 @@ public class Email : IEmail
             MailMessage mail = new MailMessage()
             {
                 From = new MailAddress(userName, name)
-                
             };
             
             mail.To.Add(email);

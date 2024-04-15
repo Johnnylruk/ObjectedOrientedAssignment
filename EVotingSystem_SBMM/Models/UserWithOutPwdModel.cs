@@ -16,6 +16,5 @@ namespace EVotingSystem_SBMM.Models
         [Required(ErrorMessage = "Select user profile")]
         [Display(Name = "Profile")]
         public ProfileEnum? Profile { get; set; }
-    
     }
 }

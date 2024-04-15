@@ -6,7 +6,6 @@ using EVotingSystem_SBMM.Repository;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc.Razor;
 namespace EVotingSystem_SBMM
 {
     public class Program
@@ -19,7 +18,6 @@ namespace EVotingSystem_SBMM
             builder.Services.AddControllersWithViews();
                 builder.Services.AddSingleton<LanguageService>();  
                 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");  
-  
                 builder.Services.AddMvc()  
                 .AddViewLocalization()  
                 .AddDataAnnotationsLocalization(options =>  
@@ -39,15 +37,12 @@ namespace EVotingSystem_SBMM
                         new CultureInfo("en-US"),  
                         new CultureInfo("pt-BR")  
                     };  
-  
+                    
                     options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");  
-  
                     options.SupportedCultures = supportedCultures;  
                     options.SupportedUICultures = supportedCultures;  
-  
                     options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());                     
                 });  
-
                 
             builder.Services
                 .AddDbContext<EVotingSystemDB>(
@@ -82,11 +77,7 @@ namespace EVotingSystem_SBMM
                 o.Cookie.IsEssential = true;
             });
             
-            
-            
-            
         var app = builder.Build();
-
         
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -94,8 +85,6 @@ namespace EVotingSystem_SBMM
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-
-                
             }
 
             var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
@@ -104,9 +93,7 @@ namespace EVotingSystem_SBMM
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
             
             //Applying session

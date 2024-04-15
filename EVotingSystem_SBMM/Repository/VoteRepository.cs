@@ -19,71 +19,67 @@ public class VoteRepository : IVoteRepository
 
     public void SubmitVote(VoteModel vote)
     {
-            EventModel eventModel = _eventRepository.GetEventById(vote.EventId);
-            vote.VoterId = Cryptography.HashVoterId(vote.VoterId);
-        
-            if (eventModel.EventType == EventTypeEnum.FPTP)
+        EventModel eventModel = _eventRepository.GetEventById(vote.EventId);
+        vote.VoterId = Cryptography.HashVoterId(vote.VoterId);
+        if (eventModel.EventType == EventTypeEnum.FPTP)
+        {
+            _evotingSystem.Votes.Add(vote);
+            _evotingSystem.SaveChanges();    
+        }
+        if (eventModel.EventType == EventTypeEnum.STV || eventModel.EventType == EventTypeEnum.PV)
+        {
+            var newVote = new VoteModel
             {
-                _evotingSystem.Votes.Add(vote);
-                _evotingSystem.SaveChanges();    
-            }
-
-            if (eventModel.EventType == EventTypeEnum.STV || eventModel.EventType == EventTypeEnum.PV)
+                VoterId = vote.VoterId,
+                EventId = eventModel.EventId,
+                VotedAtTime = vote.VotedAtTime,
+                Preferences = new List<VotePreferenceModel>()
+            };
+            // Iterate over preferences and add them to the new vote
+            foreach (var preference in vote.Preferences)
             {
-                var newVote = new VoteModel
+                var newPreference = new VotePreferenceModel
                 {
-                    VoterId = vote.VoterId,
+                    CandidateId = preference.CandidateId,
+                    Rank = preference.Rank,
                     EventId = eventModel.EventId,
-                    VotedAtTime = vote.VotedAtTime,
-                    Preferences = new List<VotePreferenceModel>()
+                    VoterId = vote.VoterId, 
                 };
-                // Iterate over preferences and add them to the new vote
-                foreach (var preference in vote.Preferences)
-                {
-                    var newPreference = new VotePreferenceModel
-                    {
-                        CandidateId = preference.CandidateId,
-                        Rank = preference.Rank,
-                        EventId = eventModel.EventId,
-                        VoterId = vote.VoterId, 
-                    };
-                    newVote.Preferences.Add(newPreference);
-                }
-
-                // Add the new vote to the context and save changes
-                _evotingSystem.Votes.Add(newVote);
-                _evotingSystem.SaveChanges();
+                newVote.Preferences.Add(newPreference);
             }
+            // Add the new vote to the context and save changes
+            _evotingSystem.Votes.Add(newVote);
+            _evotingSystem.SaveChanges();
+        }
     }
     public List<VoteModel> GetVotesByEventId(int eventId)
     {
-        
         return _evotingSystem.Votes
             .Where(v => v.EventId == eventId)
             .ToList();
     }
+    
     public List<VotePreferenceModel> GetPreferenceVotesByEventId(int? eventId)
     {
-        
         return _evotingSystem.VotePreferences
             .Where(v => v.EventId == eventId)
             .ToList();
     }
+    
     public List<VotePreferenceModel> GetSTVVotesByEventId(int voteId)
     {
         return _evotingSystem.VotePreferences
             .Where(v => v.VoteId == voteId)
             .ToList();
     }
+    
     public int GetVoteCountForCandidate(int candidateId, int eventId)
     {
         var candidate = _evotingSystem.Candidates
             .Include(c => c.Votes)
             .FirstOrDefault(c => c.Id == candidateId);
-
         // Filter votes based on both candidateId and eventId
         int voteCount = candidate?.Votes?.Count(v => v.EventId == eventId) ?? 0;
-
         return voteCount;
     }
 
@@ -101,6 +97,4 @@ public class VoteRepository : IVoteRepository
         int hashedVoterId = Cryptography.HashVoterId(voterId);
         return _evotingSystem.Votes.Any(v => v.EventId == eventId && v.VoterId == hashedVoterId);
     }
- 
-  
 }

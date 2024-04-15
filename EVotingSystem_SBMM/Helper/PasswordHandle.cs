@@ -1,4 +1,3 @@
-using EVotingSystem_SBMM.Models;
 
 namespace EVotingSystem_SBMM.Helper;
 
@@ -16,7 +15,6 @@ public class PasswordHandle : IPasswordHandle
     {
         return Guid.NewGuid().ToString().Substring(0, 8);
     }
-
     public string HashPassword(string password)
     {
         return password.GenerateHash();

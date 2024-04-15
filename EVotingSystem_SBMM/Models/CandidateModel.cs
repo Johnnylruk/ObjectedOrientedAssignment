@@ -19,5 +19,4 @@ public class CandidateModel : BaseModel
     public ProfileEnum? Profile { get; set; }
     public ICollection<VoteModel> Votes { get; set; } = new List<VoteModel>();
     public bool IsElected { get; set; }
-
 }

@@ -1,6 +1,3 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using EVotingSystem_SBMM.Data;
 using EVotingSystem_SBMM.Filters;
 using EVotingSystem_SBMM.Models;
 using EVotingSystem_SBMM.Repository;
@@ -72,7 +69,5 @@ public class AuditController : Controller
             .ToList();
         
         return Json(new { data = votes });
-        
     }
- 
 }

@@ -5,8 +5,6 @@ namespace EVotingSystem_SBMM.Helper;
 
 public static class Cryptography
 {
-    // Need to say why is static!!!!
-    // Reference this one as I did not do bymyself
     public static string GenerateHash(this string value)
     {
         var hash = SHA256.Create();
@@ -20,7 +18,6 @@ public static class Cryptography
         {
             strHexa.Append(item.ToString("x2"));
         }
-
         return strHexa.ToString();
     }
     

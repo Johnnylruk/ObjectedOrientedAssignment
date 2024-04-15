@@ -25,7 +25,6 @@ namespace EVotingSystem_SBMM.Controllers
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
-
             // Redirect back to the previous page
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -41,9 +40,5 @@ namespace EVotingSystem_SBMM.Controllers
             var requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             return View(new ErrorViewModel { RequestId = requestId });
         }
-
-
-        
-
     }
 }

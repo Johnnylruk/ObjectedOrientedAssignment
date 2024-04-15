@@ -30,18 +30,15 @@ public class VoteController : Controller
         {
             var voterId = _userSession.GetVoterSession();
             EventModel eventModel = _eventRepository.GetEventById(eventId);
-
             vote.VotedAtTime = DateTime.Now;
             vote.VoterId = voterId.Id;
             vote.EventId = eventModel.EventId;
-           // vote.CandidateId = candidateId.Id;
             
             // Ensure there are preferences and each preference has both CandidateId and Rank
             if (vote.Preferences != null && vote.Preferences.All(p => p.CandidateId != 0 && p.Rank != 0))
             {
                 // Submit the vote to the repository
                 _voteRepository.SubmitVote(vote);
-
                 TempData["SuccessMessage"] = "Votes submitted successfully!";
                 return RedirectToAction("Index", "AccessVoter");
             }
@@ -73,7 +70,6 @@ public class VoteController : Controller
                 CandidateId = candidateId,
                 EventId = eventId.EventId
             };
-        
             _voteRepository.SubmitVote(vote);
             TempData["SuccessMessage"] = "Vote submitted successfully!";
             TempData["SelectedCandidateId"] = candidateId;
@@ -85,7 +81,6 @@ public class VoteController : Controller
             return RedirectToAction("Error", "Home");
         }
     }
-    
     #endregion
 
     #region Vote Results
@@ -97,7 +92,6 @@ public class VoteController : Controller
         EventModel eventModel = _eventRepository.GetEventById(id);
         List<CandidateModel> candidates = _candidateRepository.GetAll();
         candidates = candidates.Where(c => c.City == eventModel.City).ToList();
-        
         var voteCounts = new Dictionary<int, int>();
         
         // Calculate vote count for each candidate
@@ -106,8 +100,6 @@ public class VoteController : Controller
             int voteCount = _voteRepository.GetVoteCountForCandidate(candidate.Id, id);
             voteCounts[candidate.Id] = voteCount;
         }
-        
-        
         int totalVotes = voteCounts.Values.Sum();
         
         if (totalVotes == null || totalVotes == 0)
@@ -118,112 +110,99 @@ public class VoteController : Controller
         // Find the candidate with the maximum votes
         int maxVoteCount = voteCounts.Values.Max();
         int candidateWithMaxVotesId = voteCounts.FirstOrDefault(x => x.Value == maxVoteCount).Key;
-
         // Passing necessary data to view
         ViewBag.TotalVotes = totalVotes;
         ViewBag.MaxVoteCount = maxVoteCount;
         ViewBag.CandidateWithMaxVotesId = candidateWithMaxVotesId;
         ViewBag.VoteCounts = voteCounts;
         ViewBag.Candidates = candidates;
-    
         return View("IndexResultsFPTP");
     }
     
-    
     //The single transferable vote (STV), sometimes known as proportional ranked choice voting (P-RCV), is a multi-winner electoral system in which each voter casts a single vote in the form of a ranked-choice ballot. 
-public IActionResult VotesResultSTV(int id)
-{
-    EventModel eventModel = _eventRepository.GetEventById(id);
-    List<CandidateModel> candidates = _candidateRepository.GetAll()
-        .Where(c => c.City == eventModel.City)
-        .ToList();
-    List<VotePreferenceModel> votePreferences = _voteRepository.GetAllVotesPreferential()
-        .Where(c => c.EventId == eventModel.EventId).ToList();    
-   
-    if (votePreferences == null || !votePreferences.Any())
+    public IActionResult VotesResultSTV(int id)
     {
-        TempData["ErrorMessage"] = "There are no votes to display results";
-        return RedirectToAction("Index", "Event");
+        EventModel eventModel = _eventRepository.GetEventById(id);
+        List<CandidateModel> candidates = _candidateRepository.GetAll()
+            .Where(c => c.City == eventModel.City)
+            .ToList();
+        List<VotePreferenceModel> votePreferences = _voteRepository.GetAllVotesPreferential()
+            .Where(c => c.EventId == eventModel.EventId).ToList();    
+       
+        if (votePreferences == null || !votePreferences.Any())
+        {
+            TempData["ErrorMessage"] = "There are no votes to display results";
+            return RedirectToAction("Index", "Event");
+        }
+        // Initialize vote counts and elected status for each candidate
+        var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
+        var electedCandidates = new HashSet<int>();
+     
+            foreach (var votePreference in votePreferences)
+            {
+                voteCounts[votePreference.CandidateId] += votePreferences.Count - votePreference.Rank + 1;
+            }
+           
+            VoterCalculationHelper.ElectCandidatesSTV(voteCounts, candidates, electedCandidates, votePreferences.Count / (candidates.Count + 1.0));
+            int totalVotes = voteCounts.Values.Sum();
+            // Find the candidate with the maximum votes
+            int maxVoteCount = voteCounts.Values.Max();
+            int candidateWithMaxVotesId = voteCounts.FirstOrDefault(x => x.Value == maxVoteCount).Key;
+            // Passing necessary data to view
+            ViewBag.TotalVotes = totalVotes;
+            ViewBag.MaxVoteCount = maxVoteCount;
+            ViewBag.CandidateWithMaxVotesId = candidateWithMaxVotesId;
+            ViewBag.VoteCounts = voteCounts;
+            ViewBag.Candidates = candidates;
+            return View("IndexResultsSTV");
     }
-    // Initialize vote counts and elected status for each candidate
-    var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
-    var electedCandidates = new HashSet<int>();
- 
+
+    public IActionResult VotesResultPV(int id)
+    {
+        EventModel eventModel = _eventRepository.GetEventById(id);
+        List<CandidateModel> candidates = _candidateRepository.GetAll()
+            .Where(c => c.City == eventModel.City)
+            .ToList();
+
+        List<VotePreferenceModel> votePreferences = _voteRepository.GetAllVotesPreferential()
+            .Where(c => c.EventId == eventModel.EventId).ToList();
+
+        if (votePreferences == null || !votePreferences.Any())
+        {
+            TempData["ErrorMessage"] = "There are no votes to display results";
+            return RedirectToAction("Index", "Event");
+        }
+        
+        // Initialise vote counts for each candidate
+        var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
         foreach (var votePreference in votePreferences)
         {
-            voteCounts[votePreference.CandidateId] += votePreferences.Count - votePreference.Rank + 1;
+            voteCounts[votePreference.CandidateId] += VoterCalculationHelper.CalculateVotesBasedOnRank(votePreference.Rank, candidates.Count);
         }
-       
-        VoterCalculationHelper.ElectCandidatesSTV(voteCounts, candidates, electedCandidates, votePreferences.Count / (candidates.Count + 1.0));
-       
-        int totalVotes = voteCounts.Values.Sum();
 
+        // Initialise elected status for each candidate
+        var electedCandidates = new HashSet<int>();
+        List<CandidateModel> candidatesCopy = new List<CandidateModel>(candidates);
+        VoterCalculationHelper.ElectCandidatesPV(voteCounts, candidatesCopy, electedCandidates);
+        int totalVotes = voteCounts.Values.Sum();
         // Find the candidate with the maximum votes
         int maxVoteCount = voteCounts.Values.Max();
         int candidateWithMaxVotesId = voteCounts.FirstOrDefault(x => x.Value == maxVoteCount).Key;
-
         // Passing necessary data to view
         ViewBag.TotalVotes = totalVotes;
         ViewBag.MaxVoteCount = maxVoteCount;
         ViewBag.CandidateWithMaxVotesId = candidateWithMaxVotesId;
         ViewBag.VoteCounts = voteCounts;
         ViewBag.Candidates = candidates;
+        ViewBag.Rank = votePreferences.Where(c => c.Rank == voteCounts.Count);
 
-        return View("IndexResultsSTV");
-}
-
-public IActionResult VotesResultPV(int id)
-{
-    EventModel eventModel = _eventRepository.GetEventById(id);
-    List<CandidateModel> candidates = _candidateRepository.GetAll()
-        .Where(c => c.City == eventModel.City)
-        .ToList();
-
-    List<VotePreferenceModel> votePreferences = _voteRepository.GetAllVotesPreferential()
-        .Where(c => c.EventId == eventModel.EventId).ToList();
-
-    if (votePreferences == null || !votePreferences.Any())
-    {
-        TempData["ErrorMessage"] = "There are no votes to display results";
-        return RedirectToAction("Index", "Event");
-    }
-    
-    // Initialise vote counts for each candidate
-    var voteCounts = candidates.ToDictionary(candidate => candidate.Id, _ => 0);
-    foreach (var votePreference in votePreferences)
-    {
-        voteCounts[votePreference.CandidateId] += VoterCalculationHelper.CalculateVotesBasedOnRank(votePreference.Rank, candidates.Count);
-    }
-
-    // Initialise elected status for each candidate
-    var electedCandidates = new HashSet<int>();
- 
-    List<CandidateModel> candidatesCopy = new List<CandidateModel>(candidates);
-    VoterCalculationHelper.ElectCandidatesPV(voteCounts, candidatesCopy, electedCandidates);
-    
-    int totalVotes = voteCounts.Values.Sum();
-
-    // Find the candidate with the maximum votes
-    int maxVoteCount = voteCounts.Values.Max();
-    int candidateWithMaxVotesId = voteCounts.FirstOrDefault(x => x.Value == maxVoteCount).Key;
-
-    // Passing necessary data to view
-    ViewBag.TotalVotes = totalVotes;
-    ViewBag.MaxVoteCount = maxVoteCount;
-    ViewBag.CandidateWithMaxVotesId = candidateWithMaxVotesId;
-    ViewBag.VoteCounts = voteCounts;
-    ViewBag.Candidates = candidates;
-    ViewBag.Rank = votePreferences.Where(c => c.Rank == voteCounts.Count);
-
-    foreach (var candidateId in electedCandidates)
-    {
-        var candidate = candidates.FirstOrDefault(c => c.Id == candidateId);
-        if (candidate != null)
-            Console.WriteLine($"{candidate.Name} (ID: {candidate.Id})");
-    }
-
-    return View("IndexResultsPV");
-    }
+        foreach (var candidateId in electedCandidates)
+        {
+            var candidate = candidates.FirstOrDefault(c => c.Id == candidateId);
+            if (candidate != null)
+                Console.WriteLine($"{candidate.Name} (ID: {candidate.Id})");
+        }
+        return View("IndexResultsPV");
+        }
     #endregion
-
 }

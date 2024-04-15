@@ -15,7 +15,6 @@ namespace EVotingSystem_SBMM.Tests
     {
         private readonly Mock<IUserSession> _userSession;
         private readonly Mock<ILoginRepository> _loginRepository;
-        private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
         private readonly Mock<IPasswordHandle> _passwordHandle;
         private LoginController _loginController; 
 
@@ -23,9 +22,8 @@ namespace EVotingSystem_SBMM.Tests
         {
             _userSession = new Mock<IUserSession>();
             _loginRepository = new Mock<ILoginRepository>();
-            _httpContextAccessor = new Mock<IHttpContextAccessor>();
             _passwordHandle = new Mock<IPasswordHandle>();
-            _loginController = new LoginController(_userSession.Object, _loginRepository.Object, _httpContextAccessor.Object, _passwordHandle.Object);
+            _loginController = new LoginController(_userSession.Object, _loginRepository.Object,_passwordHandle.Object);
         }
         
         private UserModel GetSampleUser()

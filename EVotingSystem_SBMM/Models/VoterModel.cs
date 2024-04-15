@@ -33,15 +33,11 @@
             
             [Required(ErrorMessage = "Type user password.")]
             public string Password { get; set; }
-            
             [Required(ErrorMessage = "Type user passport.")]
             public string Passport { get; set; }
-            
             public ProfileEnum? Profile { get; set; }
             public bool IsPending { get; set; }
             public ICollection<VoteModel> Votes { get; set; } = new List<VoteModel>();
             public ICollection<VotePreferenceModel> PreferenceVotes { get; set; } = new List<VotePreferenceModel>();
-
-
         }
     }
